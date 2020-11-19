@@ -1,0 +1,15 @@
+egg:
+Entropy (groups of one symbol): 5.7242
+Entropy (groups of two symbols) : 3.9660
+
+landscape:
+Entropy (groups of one symbol): 7.4205
+Entropy (groups of two symbols) : 4.9638
+
+pattern:
+Entropy (groups of one symbol): 1.8292
+Entropy (groups of two symbols) : 1.0860
+
+zebra:
+Entropy (groups of one symbol): 5.8312
+Entropy (groups of two symbols) : 4.1732
