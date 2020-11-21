@@ -7,5 +7,3 @@ Sancho Amaral Simoes, 2019217590
 José Domingos da Silva, 2018296125
 Tiago Filipe Santa Ventura, 2019243695
 João Afonso Vieira de Sousa, 2019224599
-
-sddsadada
