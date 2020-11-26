@@ -10,10 +10,12 @@ Entropy (with subtraction filter and pairs of symbols): 0.9102 bits
 
 landscape.bmp:
 Entropy (without subtraction filter): 7.4205 bits
+Entropy (with subtraction filter) : 2.7939 bits
 Entropy (with subtraction filter and pairs of symbols): 2.6531 bits
 
 pattern.bmp:
 Entropy (without subtraction filter): 1.8292 bits
+Entropy (with subtraction filter) : 0.6216 bits
 Entropy (with subtraction filter and pairs of symbols): 0.5112 bits
 
 zebra.bmp:
