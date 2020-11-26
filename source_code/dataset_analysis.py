@@ -1,4 +1,4 @@
-from TP2.lib import entropic_codification as ec
+from lib import entropic_codification as ec
 import matplotlib.image as img
 import os
 
@@ -17,8 +17,8 @@ def analyse_files(files_dir):
                 histogram = ec.gen_histogram(image_data, len(alphabet))
                 histogram_pairs, num_groups = ec.gen_histogram_generic(image_data, GROUP_SIZE)
                 ec.plot_histogram(alphabet, histogram, file, TICKS_SIZE)
-                print('Entropy (groups of one symbol): %.4f\n'
-                      'Entropy (groups of two symbols) : %.4f'
+                print('Entropy (groups of one symbol): %.4f  bits\n'
+                      'Entropy (groups of two symbols) : %.4f  bits'
                       % (ec.entropy(histogram, len(image_data)),
                          ec.entropy_generic(histogram_pairs, num_groups, GROUP_SIZE)))
 
