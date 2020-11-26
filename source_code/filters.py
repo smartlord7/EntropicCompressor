@@ -55,13 +55,13 @@ def analyse_files(files_dir):
                 histogram = np.array(np.unique(image_data, return_counts=True))[1]
                 histogram_filtered = np.array(np.unique(image_data_filtered, return_counts=True))[1]
                 histogram_grouped, num_groups = ec.gen_histogram_generic(image_data_filtered, 2)
-
                 print('%s:\nEntropy (without subtraction filter): %.4f bits\n'
-                      'Entropy (with subtraction filter) : %.4f bits\n'
-                      'Entropy (with subtraction filter and pairs of symbols) : %.4f bits\n'
+                      'Entropy (with subtraction filter) : %.4f bits'
                       % (file, ec.entropy(histogram, len_data),
-                         ec.entropy(histogram_filtered, len_data),
-                         ec.entropy_generic(histogram_grouped, num_groups, 2)))
+                         ec.entropy(histogram_filtered, len_data)))
+
+                print('Entropy (with subtraction filter and pairs of symbols) : %.4f bits\n'
+                      % (ec.entropy_generic(histogram_grouped, num_groups, 2)))
 
 
 def main():
