@@ -5,16 +5,16 @@ import os
 import copy
 
 
-def to_numpy_int8(data):
+def to_numpy_uint8(data):
     if type(data) != np.ndarray:
         data = np.array(list(data))
-    if data.dtype != np.int8:
-        data = data.astype(np.int8)
+    if data.dtype != np.uint8:
+        data = data.astype(np.uint8)
     return data
 
 
 def apply_subtraction_filter(data, subtract_previous=True, transpose=False):
-    data_copy = to_numpy_int8(copy.deepcopy(data))
+    data_copy = to_numpy_uint8(copy.deepcopy(data))
     if transpose:
         data_copy = np.transpose(data_copy)
     data_copy = data_copy.flatten()
@@ -28,7 +28,7 @@ def apply_subtraction_filter(data, subtract_previous=True, transpose=False):
 
 
 def decode_subtraction_filter(data, subtract_previous=True, transpose=False):
-    data = to_numpy_int8(data)
+    data = to_numpy_uint8(data)
     data = data.flatten()
     l = len(data)
     if transpose:
@@ -42,7 +42,7 @@ def decode_subtraction_filter(data, subtract_previous=True, transpose=False):
     return data
 
 
-FILES_DIR = '../resources/images/uncompressed_images/'
+FILES_DIR = '../resources/images/uncompressed/'
 
 
 def analyse_files(files_dir):

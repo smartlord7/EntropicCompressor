@@ -70,7 +70,7 @@ def rle_decode(decompressor):
     return final_strg
 
 
-str1 = img.imread("../resources/images/uncompressed_images/egg.bmp")
+str1 = img.imread("../resources/images/uncompressed_images/egg.cmp.bmp")
 
 shape = str1.shape
 str1 = str1.flatten()
