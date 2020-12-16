@@ -12,6 +12,9 @@ def to_numpy_uint8(data):
         data = data.astype(np.uint8)
     return data
 
+def apply_mean_filter(data):
+    data_copy = to_numpy_uint8(copy.deepcopy(data))
+
 
 def apply_subtraction_filter(data, subtract_previous=True, transpose=False):
     data_copy = to_numpy_uint8(copy.deepcopy(data))
@@ -42,7 +45,7 @@ def decode_subtraction_filter(data, subtract_previous=True, transpose=False):
     return data
 
 
-FILES_DIR = '../resources/images/uncompressed/'
+FILES_DIR = '../../../resources/images/uncompressed/'
 
 
 def analyse_files(files_dir):
@@ -60,8 +63,8 @@ def analyse_files(files_dir):
                       % (file, ec.entropy(histogram, len_data),
                          ec.entropy(histogram_filtered, len_data)))
 
-                print('Entropy (with subtraction filter and pairs of symbols) : %.4f bits\n'
-                      % (ec.entropy_generic(histogram_grouped, num_groups, 2)))
+                """"print('Entropy (with subtraction filter and pairs of symbols) : %.4f bits\n'
+                      % (ec.entropy_generic(histogram_grouped, num_groups, 2)))"""
 
 
 def main():

@@ -1,11 +1,10 @@
 import numpy as np
 import matplotlib.image as img
-from source_code import filters
 import os
 
 
-def lzw_encode(data, min, max):
-    entries = {(i, ): i for i in range(min, max + 1)}
+def lzw_encode(data, alphabet):
+    entries = {(alphabet[i], ): i for i in range(len(alphabet))}
     dict_size = len(entries)
     current = tuple()
     encoded = list()
@@ -23,8 +22,8 @@ def lzw_encode(data, min, max):
     return encoded
 
 
-def lzw_decode(encoded_data, min, max):
-    entries = {i: (i,) for i in range(min, max + 1)}
+def lzw_decode(encoded_data, alphabet):
+    entries = {(alphabet[i], ): i for i in range(len(alphabet))}
     dict_size = len(entries)
     decoded = list()
     current = (encoded_data[0], )
@@ -42,10 +41,6 @@ def lzw_decode(encoded_data, min, max):
         dict_size += 1
         current = entry
     return decoded
-
-
-def rle_encode(data):
-    encoded = tuple()
 
 
 

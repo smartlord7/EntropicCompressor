@@ -3,7 +3,7 @@ import matplotlib.image as img
 import os
 
 GROUP_SIZE = 2
-FILES_DIR = 'C:\\Users\\Sancho\\PycharmProjects\\TI\TP2\\resources\\images\\uncompressed_images'
+FILES_DIR = '../resources/images/uncompressed/'
 TICKS_SIZE = 10
 
 
@@ -11,7 +11,8 @@ def analyse_files(files_dir):
     for subdir, dirs, files in os.walk(files_dir):
         for file in files:
             if file.endswith('.bmp'):
-                image_data = img.imread(files_dir + '\\' + file)
+                print(file)
+                image_data = img.imread(files_dir + file)
                 image_data = image_data.flatten()
                 alphabet = ec.gen_alphabet(image_data)
                 histogram = ec.gen_histogram(image_data, len(alphabet))

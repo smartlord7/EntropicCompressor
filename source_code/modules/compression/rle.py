@@ -1,10 +1,9 @@
-import source_code.filters as filters
+import source_code.modules.filters.filters as filters
 import matplotlib.image as img
 import os
 from lib.huffmancodec import HuffmanCodec
 from lib.huffmancodec import _EndOfFileSymbol
 import lib.encoding_file_writer as fw
-import numpy as np
 
 
 def rle_encode(data, escape_character=-256):
@@ -12,8 +11,6 @@ def rle_encode(data, escape_character=-256):
     length = len(data)
     i = int()
     while i < length:
-        if not i % 1000000:
-            print("%.2f %%" % (i / length * 100))
         if i == length - 1:
             encoded_data.append(data[i])
             break
@@ -56,7 +53,7 @@ def rle_decode(encoded_data, escape_character=-256):
     return decoded_data
 
 
-FILES_DIR = '../resources/images/uncompressed/'
+FILES_DIR = '../../../resources/images/uncompressed/'
 
 
 def analyse_files(files_dir):

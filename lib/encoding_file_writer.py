@@ -1,6 +1,6 @@
 # Bit stream encoding demo
 #
-# Developed by Marco Simões on 07/12/2020
+# Developed by Marco Simões on 07/12/2020 -> Edited by Sancho Simoes, 2019217590
 # msimoes@dei.uc.pt
 
 import pickle
@@ -8,9 +8,10 @@ import os
 
 # função para codificar uma fonte, 
 # usando uma tabela de codigos e respetivos comprimentos
+
 def encode(data, table, eof_symbol):
     encoded_data = bytearray()
-    
+
     data = list(data) + [eof_symbol]
 
     buffer = 0
@@ -93,18 +94,21 @@ def decode(encoded_data, table, eof_symbol):
                 size = 0
 
 
-# escreve bytrarray para ficheiro
-def write_file(filename, data):
-    with open(filename, 'wb') as f:
-        pickle.dump(data, f)
-        f.close()
+# escreve header bytearray para ficheiro
+def write_file(filename, data, header):
+    if type(header) == dict:
+        with open(filename, 'wb') as f:
+            pickle.dump(header, f)
+            pickle.dump(data, f)
+            f.close()
 
-# le bytearray do ficheiro
+# le header e bytearray do ficheiro
 def read_file(filename):
     with open(filename, 'rb') as f:
+        header = pickle.load(f)
         data = pickle.load(f)
         f.close()
-        return data
+        return header, data
 
 
 if __name__ == '__main__':

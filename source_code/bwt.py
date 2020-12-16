@@ -1,7 +1,7 @@
 import numpy as np
 from cffi.backend_ctypes import xrange
 
-import lib.entropic_codification as ec
+import lib.entropic_encoding as ec
 
 
 def bwt_encode(data):

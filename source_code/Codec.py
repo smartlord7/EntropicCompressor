@@ -1,14 +1,13 @@
 import source_code.modules.filters.filters as filt
 import source_code.modules.compression.rle as rle
-import source_code.modules.compression.lzw as lzw
 import lib.encoding_file_writer as frw
 import matplotlib.image as img
-import numpy as np
+import warnings
 import time
 from lib.huffmancodec import HuffmanCodec, _EndOfFileSymbol
 
 
-class InvalidFileTypeError(Exception):
+class InvalidFileExtensionError(Exception):
     pass
 
 
@@ -25,7 +24,7 @@ class BMPCompressor:
 
     def __init__(self, input_file_path, output_file_path, log=False):
         if not input_file_path.endswith('bmp'):
-            raise InvalidFileTypeError
+            raise InvalidFileExtensionError
         
         matrix_data = img.imread(input_file_path)
         if len(matrix_data.shape) != 2:
@@ -54,26 +53,14 @@ class BMPCompressor:
     def apply_transformations(self):
         pass
 
-    def get_compressed_image_header(self):
-        return {
-            'width': self.image_width,
-            'height': self.image_height,
-            'encoding_table': self.encoding_table
-        }
-
     def apply_compression(self):
         now = time.perf_counter()
         if self.log:
-            print('Compressing image...\n'
-                  'Applying RLE encoding...')
+            print('Applying RLE encoding...')
         if self.filtered_data.any():
             data = rle.rle_encode(self.filtered_data, self.ESCAPE_CHARACTER)
         else:
             data = rle.rle_encode(self.flattened_data, self.ESCAPE_CHARACTER)
-        alphabet = np.unique(data)
-        if self.log:
-            print('Applying LZW encoding...')
-        data = lzw.lzw_encode(data, alphabet)
         data.append(self.EOF_SYMBOL)
         if self.log:
             print('Applying Huffman encoding...')
@@ -81,6 +68,13 @@ class BMPCompressor:
         self.compressed_data = frw.encode(data,  self.encoding_table, eof_symbol=self.EOF_SYMBOL)
         if self.log:
             print('Ellapsed compression time: %.2f sec' % (time.perf_counter() - now))
+
+    def build_cmp_header(self):
+        return {
+            'width': self.image_width,
+            'height': self.image_height,
+            'encoding_table': self.encoding_table
+        }
 
     def write_in_file(self):
         output_file_name = str()
@@ -90,7 +84,20 @@ class BMPCompressor:
             print('Writing in file: %s' % output_file_name)
         if self.compressed_data:
             frw.write_file(self.output_file_path + output_file_name, self.compressed_data,
-                           self.get_compressed_image_header())
+                           self.build_cmp_header())
+
+    def all_compress(self):
+        if self.log:
+            print('Compressing image...')
+        now = time.perf_counter()
+        self.apply_filters()
+        self.apply_transformations()
+        self.apply_compression()
+        if self.log:
+            print('Total ellapsed compression time: %.2f' % (time.perf_counter() - now))
+
+    def toggle_log(self):
+        self.log = not self.log
 
     def get_flattened_data(self):
         return self.flattened_data
@@ -104,6 +111,61 @@ class BMPCompressor:
     def get_compressed_data(self):
         return self.compressed_data
     
+
+class CMPDecompressor:
+
+    EOF_SYMBOL = _EndOfFileSymbol()
+    ESCAPE_CHARACTER = -256
+    FILE_EXTENSION = '.bmp'
+
+    def __init__(self, input_file_path, output_file_path, log=False):
+        warnings.filterwarnings('ignore')
+        if not input_file_path.endswith('cmp'):
+            raise InvalidFileExtensionError
+
+        self.header, self.compressed_data = frw.read_file(input_file_path)
+        self.log = log
+        self.filtered_data = None
+        self.original_data = None
+
+    def apply_uncompression(self):
+        now = time.perf_counter()
+        if self.log:
+            print('Applying Inverse Huffman Encoding...')
+        data = frw.decode(self.compressed_data, self.header['encoding_table'], self.EOF_SYMBOL)
+        if self.log:
+            print('Applying Inverse RLE...')
+        self.filtered_data = rle.rle_decode(data, self.ESCAPE_CHARACTER)
+        if self.log:
+            print('Ellapsed uncompression time: %.2f' % (time.perf_counter() - now))
+
+    def apply_unfilter(self):
+        now = time.perf_counter()
+        if self.log:
+            print('Unfiltering image...')
+        self.original_data = filt.decode_subtraction_filter(self.filtered_data)
+        if self.log:
+            print('Ellapsed unfiltering time: %.2f' % (time.perf_counter() - now))
+
+    def all_uncompress(self):
+        now = time.perf_counter()
+        self.apply_uncompression()
+        self.apply_unfilter()
+        if self.log:
+            print('Total ellapsed uncompression time: %.2f' % (time.perf_counter() - now))
+
+    def toggle_log(self):
+        self.log = not self.log
+
+    def get_compressed_data(self):
+        return self.compressed_data
+
+    def get_filtered_data(self):
+        return self.filtered_data
+
+    def get_original_data(self):
+        return self.original_data
+
 
 
 
