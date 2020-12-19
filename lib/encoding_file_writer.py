@@ -71,10 +71,9 @@ def decode(encoded_data, table, eof_symbol):
 
     buffer = 0
     size = 0
-
+    counter = 0
     # vou percorrer os bytes codificados
     for byte in encoded_data:
-
         # vou tirar bit a bit, do mais significativo para o menos, e juntando ao buffer
         for m in masks:
             buffer = (buffer << 1) + bool(byte & m)
@@ -92,13 +91,14 @@ def decode(encoded_data, table, eof_symbol):
                 # reinicio o buffer                
                 buffer = 0
                 size = 0
-
+        counter += 1
 
 # escreve header bytearray para ficheiro
 def write_file(filename, data, header):
     if type(header) == dict:
         with open(filename, 'wb') as f:
-            pickle.dump(header, f)
+            if header:
+                pickle.dump(header, f)
             pickle.dump(data, f)
             f.close()
 

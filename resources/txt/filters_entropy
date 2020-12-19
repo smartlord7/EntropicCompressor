@@ -1,0 +1,34 @@
+crop.bmp:
+Entropy (simple): 2.3857 bits
+Entropy (with subtraction filter) : 0.8513 bits
+Entropy (with paeth filter) : 0.9111 bits
+
+egg.bmp:
+tropy (with no filters): 5.7242 bits
+Entropy (with subtraction filter) : 2.6994 bits
+Entropy (with paeth filter) : 2.5682 bits
+
+gradient.jpg:
+Entropy (without subtraction filter): 7.4480 bits
+Entropy (with subtraction filter): 0.9790 bits
+Entropy (with subtraction filter and pairs of symbols): 0.9102 bits
+
+landscape.bmp:
+Entropy (with no filters): 7.4205 bits
+Entropy (with subtraction filter) : 2.8242 bits
+Entropy (with paeth filter) : 2.6039 bits
+
+lena.bmp:
+Entropy (with no filters): 7.4455 bits
+Entropy (with subtraction filter) : 5.0693 bits
+Entropy (with paeth filter) : 4.9789 bits
+
+pattern.bmp:
+Entropy (with no filters): 1.8292 bits
+Entropy (with subtraction filter) : 0.5957 bits
+Entropy (with paeth filter) : 0.5206 bits
+
+zebra.bmp:
+Entropy (with no filters): 5.8312 bits
+Entropy (with subtraction filter) : 3.2219 bits
+Entropy (with paeth filter) : 3.0394 bits
