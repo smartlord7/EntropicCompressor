@@ -12,7 +12,7 @@ FILES_DIR = '../resources/images/uncompressed/original/'
 def analyse_files(files_dir):
     """
         Function for testing purposes. The files in the specified folder (.bmp images)
-        will be compressed via LZMA encoding and then written in the current directory with the extension .lzma
+        will be compressed via LZMA encoding and then written in the current directory with the extension .lzma.
         :param files_dir: the directory in which the .bmp images are.
         :return:
     """

@@ -34,7 +34,7 @@ def compress_files(files_dir):
     """
     Given a directory, this function loops through all the .bmp images inside it and applies the specified algorithms below in order
     to compress the files in question.
-    :param files_dir: the directory in which the target .bmp files are
+    :param files_dir: the directory in which the target .bmp files are.
     :return:
     """
     for subdir, dirs, files in os.walk(files_dir):
@@ -56,7 +56,7 @@ def uncompress_files(files_dir):
     """
        Given a directory, this function loops through all the .cmp files inside it and applies the specified algorithms below in order
        to decompress the files in question.
-       :param files_dir: the directory in which the target .cmp files are
+       :param files_dir: the directory in which the target .cmp files are.
        :return:
     """
     for subdir, dirs, files in os.walk(files_dir):

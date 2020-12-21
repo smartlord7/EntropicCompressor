@@ -19,7 +19,7 @@ def analyse_files(files_dir):
     """
     Function for testing purposes. The files in the specified folder (.bmp images)
     will be analysed in order to retrieve their base entropy, their entropy when up filter is applied, their entropy
-    when the simple Paeth filter is applied and their entropy when the MTF transform is applied (Move To Fronnt)
+    when the simple Paeth filter is applied and their entropy when the MTF transform is applied (Move To Front).
     :param files_dir: the directory in which the .bmp images are.
     :return:
     """
