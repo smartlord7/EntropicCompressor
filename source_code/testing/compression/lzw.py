@@ -2,8 +2,11 @@ import source_code.cmp.modules.compression.lzw as lzw
 import matplotlib.image as img
 import os
 
-#Constants
+#region Constants
+
 FILES_DIR = '../resources/images/uncompressed/original/'
+
+#endregion Constants
 
 
 def analyse_files(files_dir):

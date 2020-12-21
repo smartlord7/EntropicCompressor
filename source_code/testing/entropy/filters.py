@@ -1,13 +1,16 @@
-from source_code.cmp.modules.filters import sub as sub, paeth as paeth
+from source_code.cmp.modules.filters import subup as sub, paeth as paeth
 from source_code.cmp.modules.transforms import mtf as mtf
-import source_code.cmp.modules.util.entropic_encoding as ec
+import source_code.cmp.modules.util.entropy as ec
 import matplotlib.image as img
 import warnings
 import numpy as np
 import os
 
-#Constants
+#region Constants
+
 FILES_DIR = '../../../resources/images/uncompressed/original/'
+
+#endregion Constants
 
 
 def analyse_files(files_dir):
@@ -22,20 +25,27 @@ def analyse_files(files_dir):
         for file in files:
             if file.endswith('.bmp'):
                 image_data = img.imread(files_dir + file)
+
                 l_shape = len(image_data.shape)
                 if l_shape == 3:
                     image_data = image_data[:, :, 0]
+
                 alphabet = [i for i in range(256)]
+
                 image_data_raveled = image_data.ravel()
+
                 image_data_up = sub.apply_simple_filter(image_data_raveled, up=True)
                 image_data_paeth = paeth.apply_simplified_paeth_filter(image_data, len(image_data), len(image_data[0]))
                 image_data_mtf = mtf.apply_mtf(image_data_raveled, alphabet)
+
                 len_data = len(image_data) * len(image_data[0])
+
                 histogram = np.array(np.unique(image_data, return_counts=True))[1]
                 histogram_sub = np.array(np.unique(image_data_up, return_counts=True))[1]
                 histogram_paeth = np.array(np.unique(image_data_paeth.ravel(), return_counts=True))[1]
                 histogram_mtf = np.array(np.unique(image_data_mtf, return_counts=True))[1]
                 #histogram_grouped, num_groups = ec.gen_histogram_generic(image_data_up, 2)
+
                 print('%s:\nEntropy (with no filters): %.4f bits\n'
                       'Entropy (with up filter) : %.4f bits\n'
                         'Entropy (with simplified paeth filter) : %.4f bits\n'

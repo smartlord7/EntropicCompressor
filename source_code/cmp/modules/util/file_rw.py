@@ -4,12 +4,17 @@
 # msimoes@dei.uc.pt
 
 import pickle
-import os
 
-# função para codificar uma fonte, 
-# usando uma tabela de codigos e respetivos comprimentos
+
 
 def encode(data, table, eof_symbol):
+    """
+    Function that encodes the specified piece of data in a bytearray, ensuring that occupies the least space possible.
+    :param data: the data to be encoded.
+    :param table: the encoding table from which the codes and their lengths will be extracted.
+    :param eof_symbol: the symbol that indicates the end of the data stream.
+    :return: the bytearray correspondent to the given data.
+    """
     encoded_data = bytearray()
 
     data = list(data) + [eof_symbol]
@@ -23,7 +28,7 @@ def encode(data, table, eof_symbol):
         b, v = table[s]
        
         # vou adicionar o codigo binario ao buffer. Para isso faço:
-        # Shift left do comprimento do simbolo a adicionar e adição do respetivo valor. 
+        # Shift left do comprimento do simbolo a adicionar e adição do respetivo valor.
         # Exemplo: buffer tem valor 101, e vou adicionar o valor 10
         # 1) shift left de duas casa (buffer << 2) -> 10100
         # 2) somar o simbolo ao buffer ( buffer + 10 ) -> 10110
@@ -59,6 +64,13 @@ def encode(data, table, eof_symbol):
 
 
 def decode(encoded_data, table, eof_symbol):
+    """
+    Function that converts a stream of a bytes of a compressed data source into a list, given its encoding table.
+    :param encoded_data: the data to be decoded.
+    :param table: the encoding table.
+    :param eof_symbol: the symbol that indicates the end of the byte stream.
+    :return: the decoded data as a list.
+    """
     decoded_data = []
 
     # inverte tabela: mapeia (bitsize, value) para symbols
@@ -93,71 +105,32 @@ def decode(encoded_data, table, eof_symbol):
                 size = 0
         counter += 1
 
-# escreve header bytearray para ficheiro
+
 def write_file(filename, data, header):
+    """
+    Function that serializes the compressed image data and its header to a binary file.
+    :param filename: the target file's name.
+    :param data: the compressed image data.
+    :param header: the data's header.
+    :return:
+    """
     if type(header) == dict:
         with open(filename, 'wb') as f:
             pickle.dump(header, f)
             pickle.dump(data, f)
             f.close()
 
-# le header e bytearray do ficheiro
+
 def read_file(filename):
+    """
+        Function that deserializes the compressed image data and its header from a binary file.
+        :param filename: the target file's name.
+        :return: the read data and its header.
+        """
     with open(filename, 'rb') as f:
         header = pickle.load(f)
         data = pickle.load(f)
         f.close()
         return header, data
-
-
-if __name__ == '__main__':
-
-    # informação a codificar, aqui é um conjunto de caracteres, 
-    # mas podia ser um conjunto de valores de pixeis de uma imagem
-    # Fonte: 'Hello World' repetido 1000 vezes
-    data = 'Hello World'*1000
-
-    # tabela com o simbolo a codificar, devolve o numero de bits e o seu codigo
-    # pode ser criada pelo huffman, por exemplo
-    table = {
-        'H': (4, 11), # 1011
-        'e': (4, 14), # 1110
-        'l': (2, 1),  # 01
-        'o': (2, 0),  # 00
-        ' ': (4, 10), # 1010
-        'W': (4, 12), # 1100
-        'r': (4, 15), # 001
-        'd': (4, 13), # 1101
-        'EOF': (3, 4) # 100
-    }
-
-    #print('Fonte a comprimir: %s' % data)
-    
-    # codificar e gravar para ficheiro
-    encoded_data = encode(data, table)
-
-    # crio um dicionario com a tabela e os dados codificados para guardar no ficheiro
-    encoded = {'t':table, 'd':encoded_data}
-
-    # guardo esse dicionario no ficheiro
-    write_file('compressed.dat', encoded)
-
-    print('tamanho original: %d, tamanho comprimido: %d' % (len(data), os.path.getsize('compressed.dat')))
-
-    # ler dicionário do ficheiro 
-    _encoded = read_file('compressed.dat')
-
-    # separar tabela e dados codificados
-    _table = _encoded['t']
-    _encoded_data = _encoded['d']
-
-    # descodificar dados
-    decoded_data = decode(_encoded_data, _table)
-
-    # validar descodificação
-    if data == ''.join(decoded_data):
-        print('Decoding successful')
-    else:
-        print('Decoding unsuccessful')
 
 

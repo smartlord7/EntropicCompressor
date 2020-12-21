@@ -1,0 +1,14 @@
+from source_code.cmp.modules.transforms import bwt as bwt
+
+"""
+Driver program for testing purposes - Burrows-Wheeler Transform
+"""
+def main():
+    if __name__ == '__main__':
+        data ='dasfasdaadsadasdsdsdsadasdwqeqwewqeeqwesadafafwrwwwfewfsd$'
+        bw_encoded = bwt.bwt_via_suffix_array(data)
+        bw_decoded = bwt.reverse_bwt(bw_encoded)
+        print(bw_encoded)
+        print(bw_decoded)
+
+main()

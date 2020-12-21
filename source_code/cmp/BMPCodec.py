@@ -1,17 +1,16 @@
 from source_code.cmp.modules.compression.huffmancodec import HuffmanCodec, _EndOfFileSymbol
-from source_code.cmp.modules.filters import sub as sub, paeth as paeth
-from source_code.cmp.modules.transforms import mtf as mtf
 from source_code.cmp.modules.compression import lzw as lzw, rle as rle, lzma as lzma
-import source_code.cmp.modules.util.encoding_file_writer as frw
-from PIL import Image
+from source_code.cmp.modules.filters import subup as sub, paeth as paeth
+from source_code.cmp.modules.transforms import mtf as mtf
+import source_code.cmp.modules.util.file_rw as frw
 import matplotlib.image as img
+from PIL import Image
 import numpy as np
-import os
 import time
-import warnings
+import os
 
 """
-    Exception throwed when trying to compress an image without .bmp extension
+    Exception raised when trying to compress an image without .bmp extension.
 """
 
 
@@ -21,7 +20,7 @@ class InvalidFileExtensionError(Exception):
 
 """
     Class that encapsulates the information about a custom .bmp compressor. The functions applied can be interchangeable
-    in order to test different combinations of compression algorithms
+    in order to test different combinations of compression algorithms.
 """
 
 
@@ -41,11 +40,11 @@ class BMPCompressor(object):
 
     def __init__(self, input_file_path, output_file_path, benchmark=False, log_data=False):
         """
-        BMPCompressor Constructor
-        :param input_file_path: the target file absolute/relative path
-        :param output_file_path: the output file absolute/relative path
-        :param benchmark: flag that toggles data exhibition about compression in each step
-        :param log_data: flag that toggles the compressed data exhibition in each step
+        BMPCompressor Constructor.
+        :param input_file_path: the target file absolute/relative path.
+        :param output_file_path: the output file absolute/relative path.
+        :param benchmark: flag that toggles data exhibition about compression in each step.
+        :param log_data: flag that toggles the compressed data exhibition in each step.
         """
 
         if not input_file_path.endswith('.bmp'):
@@ -53,23 +52,15 @@ class BMPCompressor(object):
 
         matrix_data = img.imread(input_file_path)
 
-        l_shape = len(matrix_data.shape)
-
-        if l_shape == 3:
+        if len(matrix_data.shape) == 3:
             matrix_data = matrix_data[:, :, 0]
 
         if log_data:
             print(matrix_data)
 
-        self.__rle = False
         self.__input_file_path = input_file_path
         self.__output_file_path = output_file_path
         self.__file_name = self.__input_file_path.split('/')[::-1][0]
-
-        self.__log_file = open(self.__output_file_path + self.__file_name.split('.')[0] + '_cmp_log.txt', 'w')
-        self.__log_file.write('-------%s CMP COMPRESSION LOG-------\n\n'
-                            'COMPRESSION STACK: \n' % self.__file_name)
-
         self.__benchmark = benchmark
         self.__log_data = log_data
         self.__image_width = matrix_data.shape[0]
@@ -78,7 +69,11 @@ class BMPCompressor(object):
         self.__compressed_data = self.__original_data
         self.__total_time = int()
         self.__encoding_table = None
+        self.__rle = False
 
+        self.__log_file = open(self.__output_file_path + self.__file_name.split('.')[0] + '_cmp_log.txt', 'w')
+        self.__log_file.write('-------%s CMP COMPRESSION LOG-------\n\n'
+                            'COMPRESSION STACK: \n' % self.__file_name)
     #endregion Constructors
 
     #region Public Functions
@@ -218,7 +213,7 @@ class BMPCompressor(object):
 
     def apply_lzw(self, max_size, reset_dict):
         """
-        Function that applies Lempel-Ziv-Whelch (LZW) to the target data (variation of LZ dictionary compression methods)
+        Function that applies Lempel-Ziv-Whelch (LZW) to the target data (variation of LZ dictionary compression methods).
         :return:
         """
         self.__log_file.write(' -> LZW WITH DICT MAX SIZE OF %d' % max_size)
@@ -247,8 +242,8 @@ class BMPCompressor(object):
 
     def apply_lzma(self):
         """
-            Function that applies Lempel-Ziv-Whelch (LZW) to the target data (variation of LZ dictionary compression methods).
-            :return:
+        Function that applies Lempel-Ziv-Whelch (LZW) to the target data (variation of LZ dictionary compression methods).
+        :return:
         """
         self.__log_file.write(' -> LZMA\n')
 
@@ -271,8 +266,8 @@ class BMPCompressor(object):
 
     def apply_huffman_encoding(self):
         """
-            Function that applies Huffman Encoding to the target data (entropic encoder).
-            :return:
+        Function that applies Huffman Encoding to the target data (entropic encoder).
+        :return:
         """
         self.__log_file.write(' -> HUFFMAN ENCODING\n')
 
@@ -295,6 +290,10 @@ class BMPCompressor(object):
             print(self.__compressed_data)
 
     def write_in_file(self):
+        """
+        Function that writes the compressed image into a .cmp file and the log information into a .txt file.
+        :return:
+        """
         output_file_name = self.__file_name.split('.')[0] + self.FILE_EXTENSION
         initial_size, compressed_size = os.path.getsize(self.__input_file_path), os.path.getsize(self.__output_file_path + output_file_name)
         compression_ratio = (initial_size - compressed_size) / initial_size * 100
@@ -303,16 +302,26 @@ class BMPCompressor(object):
                             'COMPRESSED IMAGE SIZE: %d bytes\n'
                             'COMPRESSION RATIO: %.2f%%\n' % (self.__total_time, initial_size, compressed_size, compression_ratio))
         self.__log_file.close()
+
         if self.__benchmark:
             print('Total ellapsed compression time: %.2f sec' % self.__total_time)
             print('Writing in file %s...' % output_file_name)
+
         frw.write_file(self.__output_file_path + output_file_name, self.__compressed_data,
                        self.__build_cmp_header())
 
     def toggle_benchmark(self):
+        """
+        Function that allows toggling the exhibition of benchmarking times.
+        :return:
+        """
         self.__benchmark = not self.__benchmark
 
     def toggle_log_data(self):
+        """
+        Function that allows toggling the exhibition of the compressed data in each step.
+        :return:
+        """
         self.__log_data = not self.__log_data
 
     #endregion Getters
@@ -322,6 +331,10 @@ class BMPCompressor(object):
     #region Private Functions
 
     def __build_cmp_header(self):
+        """
+        Function that builds the header (a dictionary) to be used in the compressed files (.cmp).
+        :return:
+        """
         header = {
                 'size': self.__image_width * self.__image_height,
                 'width': self.__image_width,
@@ -333,6 +346,7 @@ class BMPCompressor(object):
         return header
 
     #endregion Private Functions
+
 
 """
     Class that encapsulates the information about a custom .bmp decompressor. The functions applied must be in the same order as the one
@@ -354,7 +368,13 @@ class CMPDecompressor:
     #region Constructors
 
     def __init__(self, input_file_path, output_file_path, benchmark=False, log_data=False):
-
+        """
+        BMPDecompressor Constructor.
+        :param input_file_path: the target file absolute/relative path.
+        :param output_file_path: the output file absolute/relative path.
+        :param benchmark: flag that toggles compression data exhibition in each step.
+        :param log_data: flag that toggles the uncompressed data exhibition in each step.
+        """
         if not input_file_path.endswith('cmp'):
             raise InvalidFileExtensionError
 
@@ -375,108 +395,185 @@ class CMPDecompressor:
     #region Public Functions
 
     def apply_inverse_huffman_encoding(self):
+        """
+        Function that performs huffman decoding on the target data.
+        :return:
+        """
+        now = time.perf_counter()
+
         if self.__benchmark:
-            now = time.perf_counter()
             print('Applying Inverse Huffman Encoding...')
+
         self.__original_data = frw.decode(self.__original_data, self.__header['encoding_table'], self.EOF_SYMBOL)
+
+        diff = time.perf_counter() - now
+        self.__total_time += diff
+
         if self.__benchmark:
-            diff = time.perf_counter() - now
-            self.__total_time += diff
             print('Ellapsed huffman encoding inversion time: %.2f sec' % diff)
+
         if self.__log_data:
             print(self.__original_data)
 
     def apply_inverse_rle(self):
+        """
+        Function that performs RLE decoding on the target data.
+        :return:
+        """
+        now = time.perf_counter()
+
         if self.__benchmark:
-            now = time.perf_counter()
             print('Applying Inverse RLE...')
+
         self.__original_data = np.array(rle.rle_decode(self.__original_data, self.ESCAPE_CHARACTER))
+
+        diff = time.perf_counter() - now
+        self.__total_time += diff
+
         if self.__benchmark:
-            diff = time.perf_counter() - now
-            self.__total_time += diff
             print('Ellapsed RLE inversion time: %.2f sec' % diff)
+
         if self.__log_data:
             print(self.__original_data)
 
     def apply_inverse_lzw(self):
+        """
+        Function that performs LZW decoding on the target data.
+        :return:
+        """
+        now = time.perf_counter()
+
         if self.__benchmark:
-            now = time.perf_counter()
             print('Applying Inverse LZW Encoding ...')
+
         self.__original_data = np.array(lzw.lzw_decode(self.__original_data))
+
+        diff = time.perf_counter() - now
+        self.__total_time += diff
+
         if self.__benchmark:
-            diff = time.perf_counter() - now
-            self.__total_time += diff
             print('Ellapsed Inverse LZW Encoding time: %.2f sec' % diff)
+
         if self.__log_data:
             print(self.__original_data)
 
     def apply_inverse_lzma(self):
+        """
+        Function that performs LZMA decoding on the target data.
+        :return:
+        """
+        now = time.perf_counter()
+
         if self.__benchmark:
-            now = time.perf_counter()
             print('Applying Inverse LZMA Encoding ...')
+
         decompressor = lzma.LZMADecompressor(format=lzma.FORMAT_RAW, filters=[{'id':lzma.FILTER_LZMA2}])
         if self.__header['rle']:
             self.__original_data = np.frombuffer(decompressor.decompress(self.__original_data), dtype=np.int32)
         else:
             self.__original_data = np.frombuffer(decompressor.decompress(self.__original_data), dtype=np.uint8)
+
+        diff = time.perf_counter() - now
+        self.__total_time += diff
+
         if self.__benchmark:
-            diff = time.perf_counter() - now
-            self.__total_time += diff
             print('Ellapsed Inverse LZMA Encoding time: %.2f sec' % diff)
+
         if self.__log_data:
             print(self.__original_data)
 
     def apply_inverse_mtf(self):
+        """
+        Function that performs inverse MTF on the target data.
+        :return:
+        """
+        now = time.perf_counter()
+
         if self.__benchmark:
-            now = time.perf_counter()
             print('Applying Inverse MTF...')
+
         self.__original_data = np.array(mtf.invert_mtf(self.__original_data, self.ALPHABET)).astype(np.uint8)
+
+        diff = time.perf_counter() - now
+        self.__total_time += diff
+
         if self.__benchmark:
-            diff = time.perf_counter() - now
-            self.__total_time += diff
             print('Ellapsed MTF inversion time: %.2f sec' % diff)
+
         if self.__log_data:
             print(self.__original_data)
 
     def apply_inverse_simple_filter(self, up):
-        warnings.filterwarnings('ignore')
+        """
+        Function that performs the inversion of Up/Sub filter on the target data.
+        :return:
+        """
+        now = time.perf_counter()
+
         if self.__benchmark:
-            now = time.perf_counter()
             print('Applying inverse simple filter...')
+
         self.__original_data = sub.invert_simple_filter(self.__original_data, self.__header['width'], self.__header['height'], up=up)
+
+        diff = time.perf_counter() - now
+        self.__total_time += diff
+
         if self.__benchmark:
-            diff = time.perf_counter() - now
-            self.__total_time += diff
             print('Ellapsed simple filter inversion time: %.2f sec' % diff)
+
         if self.__log_data:
             print(self.__original_data)
 
     def apply_inverse_simplified_paeth_filter(self):
+        """
+        Function that performs the inversion of Paeth filter on the target data.
+        :return:
+        """
+        now = time.perf_counter()
         if self.__benchmark:
-            now = time.perf_counter()
             print('Applying inverse simple Paeth filter...')
+
         self.__original_data = paeth.invert_simplified_paeth_filter(self.__original_data, self.__header['width'], self.__header['height'])
+
+        diff = time.perf_counter() - now
+        self.__total_time += diff
+
         if self.__benchmark:
-            diff = time.perf_counter() - now
-            self.__total_time += diff
             print('Ellapsed inverse simple Paeth filtering time: %.2f sec' % diff)
+
         if self.__log_data:
             print(self.__original_data)
 
     def write_in_file(self, show_image=False):
-        output_file_name = self.__input_file_path.split('/')[::-1][0].split('.')[0] + self.FILE_EXTENSION
+        """
+        Function that writes the uncompressed image into a .bmp file and the uncompression log information into a .txt file.
+        :return:
+        """
         self.__original_data = np.reshape(np.array(self.__original_data).astype(np.uint8), (self.__header['width'], self.__header['height']))
         image = Image.fromarray(self.__original_data, 'L')
+
         if show_image:
             Image._show(image)
+
+        output_file_name = self.__input_file_path.split('/')[::-1][0].split('.')[0] + self.FILE_EXTENSION
+
         if self.__benchmark:
             print('Writing in file %s...' % output_file_name)
+
         image.save(self.__output_file_path + output_file_name)
 
     def toggle_benchmark(self):
+        """
+        Function that allows toggling the exhibition of benchmarking times.
+        :return:
+        """
         self.__benchmark = not self.__benchmark
 
     def toggle_log_data(self):
+        """
+        Function that allows toggling the exhibition of the uncompressed data in each step
+        :return:
+        """
         self.__log_data = not self.__log_data
 
     #endregion Public Functions

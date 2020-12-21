@@ -1,12 +1,15 @@
-from source_code.cmp.modules.util import entropic_encoding as ec
+from source_code.cmp.modules.util import entropy as ec
 import matplotlib.image as img
 import os
 
 
-#Constants
+#region Constants
+
 GROUP_SIZE = 2
-FILES_DIR = '../resources/images/uncompressed/'
+FILES_DIR = '../resources/images/uncompressed/original/'
 TICKS_SIZE = 10
+
+#endregion Constants
 
 
 def analyse_files(files_dir):
@@ -19,15 +22,17 @@ def analyse_files(files_dir):
     for subdir, dirs, files in os.walk(files_dir):
         for file in files:
             if file.endswith('.bmp'):
-                print(file)
+                print('%s: ' % file)
                 image_data = img.imread(files_dir + file)
-                image_data = image_data.flatten()
+                image_data = image_data.ravel()
                 alphabet = ec.gen_alphabet(image_data)
+
                 histogram = ec.gen_histogram(image_data, len(alphabet))
                 histogram_pairs, num_groups = ec.gen_histogram_generic(image_data, GROUP_SIZE)
                 ec.plot_histogram(alphabet, histogram, file, TICKS_SIZE)
+
                 print('Entropy (groups of one symbol): %.4f  bits\n'
-                      'Entropy (groups of two symbols) : %.4f  bits'
+                      'Entropy (groups of two symbols) : %.4f  bits\n'
                       % (ec.entropy(histogram, len(image_data)),
                          ec.entropy_generic(histogram_pairs, num_groups, GROUP_SIZE)))
 

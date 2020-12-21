@@ -1,8 +1,13 @@
 from source_code.cmp.modules.filters import util as util
-import time
 
 
 def apply_mtf(data, alphabet):
+    """
+    Function that applies the Move To Front Transform on a given piece of data.
+    :param data: the target data.
+    :param alphabet: the data's alphabet.
+    :return: the MTF encoded data.
+    """
     encoded, symbol_list = list(), alphabet[::]
     counter = int()
     for char in data:
@@ -15,23 +20,15 @@ def apply_mtf(data, alphabet):
 
 
 def invert_mtf(data, alphabet):
+    """
+    Function that applies the Inverse Move To Front Transform on a given piece of data.
+    :param data: the target data to be decoded.
+    :param alphabet: the data's alphabet.
+    :return: the MTF decoded data.
+    """
     decoded, symbol_list = list(), alphabet[::]
     for index in data:
         symbol = symbol_list[index]
         decoded.append(symbol)
         symbol_list = [symbol_list.pop(index)] + symbol_list
     return decoded
-
-
-def main():
-    if __name__ == '__main__':
-        now = time.perf_counter()
-        alphabet = [0, 1, 2, 3]
-        string = [1, 3, 2, 1, 0]
-        encoded = apply_mtf(string, alphabet)
-        print(encoded)
-        decoded = invert_mtf(encoded, alphabet)
-        print(decoded)
-        print(string == decoded)
-        print(time.perf_counter() - now)
-main()

@@ -3,6 +3,11 @@ from cffi.backend_ctypes import xrange
 
 
 def bwt_encode(data):
+    """
+    Naive implementation of Burrows-Wheeler Transform that supports numpy.
+    :param data: the target data.
+    :return: the BWT encoded data and the index of the original string in the rotation matrix.
+    """
     if type(data) == np.ndarray:
         l = len(data)
         rotation_matrix = np.zeros((l, l))
@@ -25,6 +30,11 @@ def bwt_encode(data):
 
 
 def bwt_decode(encoded_data, index):
+    """
+    Naive implementation of Burrows-Wheeler Inverse Transform.
+    :param data: the target data.
+    :return: the BWT decoded data.
+    """
     if type(encoded_data) == np.ndarray:
         l = len(encoded_data)
         original_matrix = np.zeros((l, l))
@@ -34,19 +44,22 @@ def bwt_decode(encoded_data, index):
         return original_matrix[index].astype(np.int32)
 
 
-def ord_array_to_string(ord_array):
-    string = str()
-    for element in ord_array:
-        string += chr(element)
-    return string
-
-
 def suffix_array(data):
+    """
+    Util function that generates a lexicographically ordered sufix array of the target data.
+    :param data: the target data.
+    :return: the lexicographically ordered sufix array of the target data.
+    """
     satups = sorted([(list(data[i:]), i) for i in xrange(0, len(data))])
     return map(lambda x: x[1], satups)
 
 
 def bwt_via_suffix_array(data):
+    """
+    Function that encodes a given piece of data using the BWT Transform via suffix array
+    :param data: the target data.
+    :return: the BWT encoded data.
+    """
     bw_encoded = list()
     for suffix in suffix_array(data):
         if not suffix:
@@ -57,6 +70,12 @@ def bwt_via_suffix_array(data):
 
 
 def rank_bwt(encoded_data):
+    """
+    Util function that t-ranks a BWT encoded data so it can be decoded.
+    Each character will have a rank index that equals to the previous ocurrences of that same character in the given data.
+    :param encoded_data: the bwt encoded data.
+    :return:
+    """
     tots = dict()
     ranks = list()
     for character in encoded_data:
@@ -67,6 +86,11 @@ def rank_bwt(encoded_data):
 
 
 def first_col(tots):
+    """
+    Util function used in BWT that retrieves the first column of the rotation matrix.
+    :param data: the target data.
+    :return: the BWT decoded data.
+    """
     first = dict()
     tot_characters = int()
     for character, count in sorted(tots.items()):
@@ -76,6 +100,11 @@ def first_col(tots):
 
 
 def reverse_bwt(encoded_data):
+    """
+    Function that decodes a given piece of data using the BWT Transform via suffix array
+    :param data: the target data.
+    :return: the BWT decoded data.
+    """
     ranks, tots = rank_bwt(encoded_data)
     first = first_col(tots)
     row_index = int()
@@ -85,14 +114,3 @@ def reverse_bwt(encoded_data):
         decoded = [character] + decoded
         row_index = first[character][0] + ranks[row_index]
     return decoded
-
-
-def main():
-    if __name__ == '__main__':
-        data ='dasfasdaadsadasdsdsdsadasdwqeqwewqeeqwesadafafwrwwwfewfsd$'
-        bw_encoded = bwt_via_suffix_array(data)
-        bw_decoded = reverse_bwt(bw_encoded)
-        print(bw_encoded)
-        print(bw_decoded)
-
-main()
