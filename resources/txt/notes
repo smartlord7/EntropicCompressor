@@ -1,0 +1,3 @@
+-LZW with small max size and dictionary reset works better for smaller images.
+-LZW performace starts to deteriorate with larger dictionary sizes.
+-BWT is too cumputationally expensive.

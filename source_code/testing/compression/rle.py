@@ -1,50 +1,16 @@
-from source_code.cmp.modules.compression.huffmancodec import _EndOfFileSymbol
+from source_code.cmp.modules.compression import rle
+
+"""
+Driver program - for testing purposes - Run Length Encoding
+"""
+def main():
+    if __name__ == '__main__':
+        string = [1, 2, 3, 1, 2, 1, 1, 1, 1, 2, 3, 2, 1, 2, 3, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4]
+        encoded = rle.rle_encode(string)
+        print(encoded)
+        decoded = rle.rle_decode(encoded)
+        print(decoded)
+
+main()
 
 
-def rle_encode(data, escape_character=-256):
-    encoded_data = list()
-    length = len(data)
-    i = int()
-    while i < length:
-        if not i % 100000:
-            print('%.2f' % (i / length * 100))
-        if i == length - 1:
-            encoded_data.append(data[i])
-            break
-        current = data[i]
-        nextIndex = i + 1
-        next = data[nextIndex]
-        while current == next:
-            nextIndex += 1
-            if nextIndex >= length:
-                break
-            next = data[nextIndex]
-        if nextIndex - i > 3:
-            encoded_data.append(escape_character)
-            encoded_data.append(current)
-            encoded_data.append(nextIndex - i)
-        else:
-            for i in range(nextIndex - i):
-                encoded_data.append(current)
-        i = nextIndex
-    eof_symbol = _EndOfFileSymbol()
-    encoded_data.append(eof_symbol)
-    return encoded_data
-
-
-def rle_decode(encoded_data, escape_character=-256):
-    decoded_data = list()
-    length = len(encoded_data)
-    i = int()
-    while i < length:
-        current = encoded_data[i]
-        if current == escape_character:
-            character = encoded_data[i + 1]
-            times = encoded_data[i + 2]
-            for j in range(times):
-                decoded_data.append(character)
-            i += 3
-        else:
-            decoded_data.append(current)
-            i += 1
-    return decoded_data

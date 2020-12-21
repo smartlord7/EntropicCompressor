@@ -1,12 +1,17 @@
 import numpy as np
 
 
-def lzw_encode(data, limit=4096):
+def lzw_encode(data, limit=4096, reset_dictionary=False):
+    if type(data) == np.ndarray:
+        data = data.ravel()
     dict_size = 256
-    entries = {(i,): i for i in range(dict_size)}
+    alphabet = {(i,): i for i in range(dict_size)}
+    entries = alphabet.copy()
     current = tuple()
     encoded = list()
+    counter = int()
     for symbol in data:
+        #util.show_progress(counter, len(data))
         concat = current + (symbol, )
         if concat in entries:
             current += (symbol, )
@@ -15,7 +20,10 @@ def lzw_encode(data, limit=4096):
             if dict_size < limit:
                 entries[concat] = dict_size
                 dict_size += 1
+            elif reset_dictionary:
+                entries = alphabet
             current = (symbol, )
+        counter += 1
     if current:
         encoded.append(entries[current])
     return encoded

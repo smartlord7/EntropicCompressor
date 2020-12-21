@@ -12,10 +12,10 @@ def apply_simple_filter(data, up=False):
 
 def invert_simple_filter(data, width, height, up=False):
     data = util.to_numpy_uint8(data).ravel()
-    decoded = data.cumsum().astype(np.uint8)
     if up:
-        data = np.transpose(decoded.reshape(height, width))
-    return data.astype(np.uint8)
+        data = np.transpose(data.reshape(height, width))
+    decoded = data.cumsum().astype(np.uint8)
+    return decoded.astype(np.uint8)
 
 
 def main():

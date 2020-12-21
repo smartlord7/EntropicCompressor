@@ -9,12 +9,10 @@ FILES_DIR = '../resources/images/uncompressed/original/'
 def analyse_files(files_dir):
     for subdir, dirs, files in os.walk(files_dir):
         for file in files:
-            if file.endswith('.bmp') or file.endswith('.jpg'):
-                image_data = img.imread(files_dir + '\\' + file).flatten()
-                image_data_encoded = lzw.lzw_encode(image_data, 0, 255)
-                print(len(image_data))
-                print(len(image_data_encoded))
-                print()
+            if file.endswith('.bmp'):
+                image_data = img.imread(files_dir + '\\' + file).ravel()
+                image_data_encoded = lzw.lzw_encode(image_data, 4096, True)
+                print(image_data_encoded)
 
 
 def main():

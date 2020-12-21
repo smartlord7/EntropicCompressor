@@ -1,3 +1,4 @@
+from source_code.cmp.modules.filters import util as util
 import time
 
 
@@ -5,6 +6,7 @@ def apply_mtf(data, alphabet):
     encoded, symbol_list = list(), alphabet[::]
     counter = int()
     for char in data:
+        util.show_progress(counter, len(data))
         index = symbol_list.index(char)
         encoded.append(index)
         symbol_list = [symbol_list.pop(index)] + symbol_list
