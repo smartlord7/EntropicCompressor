@@ -38,7 +38,7 @@ class BMPCompressor:
             matrix_data = matrix_data[:, :, 0]
         if log_data:
             print(matrix_data)
-        self.rled = False
+        self.rle = False
         self.input_file_path = input_file_path
         self.output_file_path = output_file_path
         self.file_name = self.input_file_path.split('/')[::-1][0]
@@ -103,7 +103,7 @@ class BMPCompressor:
             print(self.compressed_data)
 
     def apply_rle(self):
-        self.rled = True
+        self.rle = True
         self.log_file.write(' -> RLE\n')
         now = time.perf_counter()
         if self.benchmark:
@@ -167,7 +167,7 @@ class BMPCompressor:
                 'size': self.image_width * self.image_height,
                 'width': self.image_width,
                 'height': self.image_height,
-                'rle': self.rled
+                'rle': self.rle
             }
         if self.encoding_table:
             header['encoding_table'] = self.encoding_table
