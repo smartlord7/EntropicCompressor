@@ -2,7 +2,7 @@ from source_code.cmp.modules.filters import paeth
 import numpy as np
 
 """
-Driver program - for testing purposes - Simplified Paeth filter
+Driver program for testing purposes - Simplified Paeth filter
 """
 def main():
     if __name__ == '__main__':

@@ -1,7 +1,7 @@
 from source_code.cmp.modules.compression import rle
 
 """
-Driver program - for testing purposes - Run Length Encoding
+Driver program for testing purposes - Run Length Encoding
 """
 def main():
     if __name__ == '__main__':

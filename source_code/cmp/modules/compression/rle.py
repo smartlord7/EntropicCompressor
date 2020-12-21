@@ -27,7 +27,6 @@ def rle_encode(data, escape_character=-256):
     return encoded_data
 
 
-
 def rle_decode(encoded_data, escape_character=-256):
     decoded_data = list()
     length = len(encoded_data)

@@ -11,13 +11,15 @@ def paeth_predictor(data, line, column):
 def __get_left_mattrix(data):
     return np.hstack((np.zeros((data.shape[0], 1)),
                       np.vstack((np.zeros(data.shape[1] - 1),
-                                 np.delete(np.delete(data, 0, axis=0), data.shape[1] - 1, axis=1))))).astype(np.int16)
+                                 np.delete(np.delete(data, 0, axis=0),
+                                           data.shape[1] - 1, axis=1))))).astype(np.int16)
 
 
 def __get_above_mattrix(data):
     return np.hstack((np.zeros((data.shape[0], 1)),
                       np.vstack(((np.zeros(data.shape[1] - 1)),
-                                 np.delete(np.delete(data, data.shape[0] - 1, axis=0), 0, axis=1))))).astype(np.int16)
+                                 np.delete(np.delete(data,
+                                                     data.shape[0] - 1, axis=0), 0, axis=1))))).astype(np.int16)
 
 
 def __get_upper_left_mattrix(data):

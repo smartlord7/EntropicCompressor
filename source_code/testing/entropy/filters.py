@@ -27,18 +27,18 @@ def analyse_files(files_dir):
                     image_data = image_data[:, :, 0]
                 alphabet = [i for i in range(256)]
                 image_data_raveled = image_data.ravel()
-                image_data_sub = sub.apply_simple_filter(image_data_raveled, up=True)
+                image_data_up = sub.apply_simple_filter(image_data_raveled, up=True)
                 image_data_paeth = paeth.apply_simplified_paeth_filter(image_data, len(image_data), len(image_data[0]))
                 image_data_mtf = mtf.apply_mtf(image_data_raveled, alphabet)
                 len_data = len(image_data) * len(image_data[0])
                 histogram = np.array(np.unique(image_data, return_counts=True))[1]
-                histogram_sub = np.array(np.unique(image_data_sub, return_counts=True))[1]
+                histogram_sub = np.array(np.unique(image_data_up, return_counts=True))[1]
                 histogram_paeth = np.array(np.unique(image_data_paeth.ravel(), return_counts=True))[1]
                 histogram_mtf = np.array(np.unique(image_data_mtf, return_counts=True))[1]
-                #histogram_grouped, num_groups = ec.gen_histogram_generic(image_data_sub, 2)
+                #histogram_grouped, num_groups = ec.gen_histogram_generic(image_data_up, 2)
                 print('%s:\nEntropy (with no filters): %.4f bits\n'
-                      'Entropy (with subtraction filter) : %.4f bits\n'
-                        'Entropy (with paeth filter) : %.4f bits\n'
+                      'Entropy (with up filter) : %.4f bits\n'
+                        'Entropy (with simplified paeth filter) : %.4f bits\n'
                         'Entropy (with mtf transform) : %.4f bits\n'
                         %   (file, ec.entropy(histogram, len_data),
                             ec.entropy(histogram_sub, len_data),
@@ -47,7 +47,7 @@ def analyse_files(files_dir):
 
 
 """
-Driver program
+Driver program for testing purposes - No filters, Up Filter, Simplified Paeth Filter and MTF Transform
 """
 def main():
     if __name__ == '__main__':

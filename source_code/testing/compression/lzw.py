@@ -2,11 +2,17 @@ import source_code.cmp.modules.compression.lzw as lzw
 import matplotlib.image as img
 import os
 
-
+#Constants
 FILES_DIR = '../resources/images/uncompressed/original/'
 
 
 def analyse_files(files_dir):
+    """
+    Function for testing purposes. The files in the specified folder (.bmp images)
+    will be compressed via LZW encoding to memory.
+    :param files_dir: the directory in which the .bmp images are.
+    :return:
+    """
     for subdir, dirs, files in os.walk(files_dir):
         for file in files:
             if file.endswith('.bmp'):
@@ -15,6 +21,9 @@ def analyse_files(files_dir):
                 print(image_data_encoded)
 
 
+"""
+Driver Program for testing purposes - LZW Encoding
+"""
 def main():
     if __name__ == '__main__':
         string = [0, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3, 1, 3, 1, 2, 3, 2, 1, 2, 1, 3, 2, 1, 3, 2, -1, -1, -1, -1]

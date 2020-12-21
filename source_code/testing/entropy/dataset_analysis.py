@@ -33,7 +33,7 @@ def analyse_files(files_dir):
 
 
 """
-Driver program - for testing purposes
+Driver program for testing purposes - Base entropy and entropy assuming groups of two symbols
 """
 def main():
     if __name__ == '__main__':
