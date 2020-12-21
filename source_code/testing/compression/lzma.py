@@ -25,11 +25,12 @@ def analyse_files(files_dir):
                 lzma_file.write(image_data)
                 lzma_file.close()
 
-"""
-Driver Program - for testing purposes -  Lempel Ziv Markov Encoding
-"""
 def main():
+    """
+    Driver Program - for testing purposes -  Lempel Ziv Markov Encoding
+    """
     if __name__ == '__main__':
        analyse_files(FILES_DIR)
+
 
 main()

@@ -1,3 +1,17 @@
+"""------------CODEC's nao destrutivos para imagens monocromaticas------------
+Universidade de Coimbra
+Licenciatura em Engenharia Informatica
+Teoria da Informacao
+Segundo ano, primeiro semestre
+
+Authors:
+João Afonso Vieira de Sousa, 2019224599, uc2019224599@student.uc.pt
+José Domingos da Silva, 2018296125, uc2018296125@student.uc.pt
+Sancho Amaral Simões, 2019217590, uc2019217590@student.uc.pt
+Tiago Filipe Santa Ventura, 2019243695, uc2019243695@student.uc.pt
+
+19/12/2020
+---------------------------------------------------------------------------"""
 from source_code.cmp.modules.compression.huffmancodec import HuffmanCodec, _EndOfFileSymbol
 from source_code.cmp.modules.compression import lzw as lzw, rle as rle, lzma as lzma
 from source_code.cmp.modules.filters import subup as sub, paeth as paeth
@@ -9,22 +23,20 @@ import numpy as np
 import time
 import os
 
-"""
-    Exception raised when trying to compress an image without .bmp extension.
-"""
-
 
 class InvalidFileExtensionError(Exception):
+    """
+    Exception raised when trying to compress an image without .bmp extension.
+    """
     pass
 
 
-"""
-    Class that encapsulates the information about a custom .bmp compressor. The functions applied can be interchangeable
-    in order to test different combinations of compression algorithms.
-"""
-
-
 class BMPCompressor(object):
+
+    """
+    Class that encapsulates the information and functionalities of a custom .bmp compressor. The functions applied can be interchangeable
+    in order to test different combinations of compression algorithms.
+    """
 
     #region Constants
 
@@ -298,9 +310,9 @@ class BMPCompressor(object):
         initial_size, compressed_size = os.path.getsize(self.__input_file_path), os.path.getsize(self.__output_file_path + output_file_name)
         compression_ratio = (initial_size - compressed_size) / initial_size * 100
         self.__log_file.write('\nTOTAL ELLAPSED COMPRESSION TIME: %.2f sec.\n'
-                            'INITIAL IMAGE SIZE: %d bytes\n'
-                            'COMPRESSED IMAGE SIZE: %d bytes\n'
-                            'COMPRESSION RATIO: %.2f%%\n' % (self.__total_time, initial_size, compressed_size, compression_ratio))
+                                'INITIAL IMAGE SIZE: %d bytes\n'
+                                'COMPRESSED IMAGE SIZE: %d bytes\n'
+                                'COMPRESSION RATIO: %.2f%%\n' % (self.__total_time, initial_size, compressed_size, compression_ratio))
         self.__log_file.close()
 
         if self.__benchmark:
@@ -324,8 +336,6 @@ class BMPCompressor(object):
         """
         self.__log_data = not self.__log_data
 
-    #endregion Getters
-
     #endregion Public Functions
 
     #region Private Functions
@@ -348,13 +358,11 @@ class BMPCompressor(object):
     #endregion Private Functions
 
 
-"""
-    Class that encapsulates the information about a custom .bmp decompressor. The functions applied must be in the same order as the one
-    used while using BMPCompressor so the file is correctly decompressed.
-"""
-
-
 class CMPDecompressor:
+    """
+    Class that encapsulates the information and functionalities of a custom .bmp decompressor. The functions applied must be in the same order as the one
+    used while using BMPCompressor so the file is correctly decompressed.
+    """
 
     #region Constants
 

@@ -1,10 +1,13 @@
 from source_code.cmp.modules.filters import subup as subup
 import numpy as np
 
-"""
-Driver program for testing purposes - Sub/Up Filter
-"""
+#region Public Functions
+
+
 def main():
+    """
+    Driver program for testing purposes - Sub/Up Filter
+    """
     if __name__ == '__main__':
         data = np.array([np.array([1, 2, 3]),
                         np.array([1, 2, 3]),
@@ -16,5 +19,9 @@ def main():
         print(encoded)
         decoded = subup.invert_simple_filter(encoded, 6, 3, up=False)
         print(decoded)
+
+
+#endregion Public Functions
+
 
 main()

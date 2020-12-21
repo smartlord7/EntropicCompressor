@@ -11,6 +11,8 @@ TICKS_SIZE = 10
 
 #endregion Constants
 
+#region Public Functions
+
 
 def analyse_files(files_dir):
     """
@@ -37,12 +39,14 @@ def analyse_files(files_dir):
                          ec.entropy_generic(histogram_pairs, num_groups, GROUP_SIZE)))
 
 
-"""
-Driver program for testing purposes - Base entropy and entropy assuming groups of two symbols
-"""
 def main():
+    """
+    Driver program for testing purposes - Base entropy and entropy assuming groups of two symbols
+    """
     if __name__ == '__main__':
         analyse_files(FILES_DIR)
 
+
+#endregion Public Functions
 
 main()

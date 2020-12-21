@@ -8,6 +8,8 @@ FILES_DIR = '../resources/images/uncompressed/original/'
 
 #endregion Constants
 
+#region Public Functions
+
 
 def analyse_files(files_dir):
     """
@@ -24,19 +26,22 @@ def analyse_files(files_dir):
                 print(image_data_encoded)
 
 
-"""
-Driver Program for testing purposes - LZW Encoding
-"""
 def main():
+    """
+    Driver Program for testing purposes - LZW Encoding
+    """
     if __name__ == '__main__':
         string = [0, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3, 1, 3, 1, 2, 3, 2, 1, 2, 1, 3, 2, 1, 3, 2, -1, -1, -1, -1]
         print(string)
         alphabet = [-1, 0, 1, 2, 3]
-        encoded = lzw.lzw_encode(string, alphabet)
+        encoded = lzw.lzw_encode(string)
         print(encoded)
-        decoded = lzw.lzw_decode(encoded, alphabet)
+        decoded = lzw.lzw_decode(encoded)
         print(decoded)
         #analyse_files(FILES_DIR)
+
+
+#endregion Public Functions
 
 
 main()

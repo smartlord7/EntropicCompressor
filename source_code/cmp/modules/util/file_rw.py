@@ -1,10 +1,24 @@
 # Bit stream encoding demo
-#
-# Developed by Marco Simões on 07/12/2020 -> Adapted by Sancho Simoes, 2019217590
+# Developed by Marco Simões on 07/12/2020
 # msimoes@dei.uc.pt
+"""------------CODEC's nao destrutivos para imagens monocromaticas------------
+Universidade de Coimbra
+Licenciatura em Engenharia Informatica
+Teoria da Informacao
+Segundo ano, primeiro semestre
+
+Coauthors (edited):
+João Afonso Vieira de Sousa, 2019224599, uc2019224599@student.uc.pt
+José Domingos da Silva, 2018296125, uc2018296125@student.uc.pt
+Sancho Amaral Simões, 2019217590, uc2019217590@student.uc.pt
+Tiago Filipe Santa Ventura, 2019243695, uc2019243695@student.uc.pt
+
+19/12/2020
+---------------------------------------------------------------------------"""
 
 import pickle
 
+#region Public Functions
 
 
 def encode(data, table, eof_symbol):
@@ -123,14 +137,17 @@ def write_file(filename, data, header):
 
 def read_file(filename):
     """
-        Function that deserializes the compressed image data and its header from a binary file.
-        :param filename: the target file's name.
-        :return: the read data and its header.
-        """
+    Function that deserializes the compressed image data and its header from a binary file.
+    :param filename: the target file's name.
+    :return: the read data and its header.
+    """
     with open(filename, 'rb') as f:
         header = pickle.load(f)
         data = pickle.load(f)
         f.close()
         return header, data
+
+
+#endregion Public Functions
 
 

@@ -1,5 +1,22 @@
+"""------------CODEC's nao destrutivos para imagens monocromaticas------------
+Universidade de Coimbra
+Licenciatura em Engenharia Informatica
+Teoria da Informacao
+Segundo ano, primeiro semestre
+
+Authors:
+João Afonso Vieira de Sousa, 2019224599, uc2019224599@student.uc.pt
+José Domingos da Silva, 2018296125, uc2018296125@student.uc.pt
+Sancho Amaral Simões, 2019217590, uc2019217590@student.uc.pt
+Tiago Filipe Santa Ventura, 2019243695, uc2019243695@student.uc.pt
+
+19/12/2020
+---------------------------------------------------------------------------"""
+
 from source_code.cmp.modules.filters import util
 import numpy as np
+
+#region Public Functions
 
 
 def lzw_encode(data, limit=4096, reset_dictionary=False):
@@ -64,3 +81,6 @@ def lzw_decode(encoded_data):
         current = entry
         counter += 1
     return decoded
+
+
+#endregion Public Functions

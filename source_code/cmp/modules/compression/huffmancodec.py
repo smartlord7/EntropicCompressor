@@ -94,7 +94,6 @@ class PrefixCodec:
         """
         return self._table
 
-    
     def get_code_len(self):
         """
         Author: RPP, 2020.11.09
@@ -107,7 +106,6 @@ class PrefixCodec:
         lengths = [v[0] for v in values] #symbol lengths
         
         return symbols, lengths
-
 
     def print_code_table(self, out=sys.stdout):
         """
@@ -305,16 +303,3 @@ class HuffmanCodec(PrefixCodec):
         frequencies = collections.Counter(data)
         return cls.from_frequencies(frequencies, concat=_guess_concat(data))
 
-
-#-------------------- author: RPP, 2020.09.11
-def main():
-    #codec = HuffmanCodec.from_data('hello world how are you doing today foo bar lorem ipsum')
-    codec = HuffmanCodec.from_data([101, 102, 101, 102, 101, 102, 101, 100, 100, 104])
-    t = codec.get_code_table()
-    print(t)
-    s, l = codec.get_code_len()
-    print(s)
-    print(l)
-    
-if __name__ == "__main__":
-    main()

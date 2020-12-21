@@ -1,4 +1,21 @@
+"""------------CODEC's nao destrutivos para imagens monocromaticas------------
+Universidade de Coimbra
+Licenciatura em Engenharia Informatica
+Teoria da Informacao
+Segundo ano, primeiro semestre
+
+Authors:
+João Afonso Vieira de Sousa, 2019224599, uc2019224599@student.uc.pt
+José Domingos da Silva, 2018296125, uc2018296125@student.uc.pt
+Sancho Amaral Simões, 2019217590, uc2019217590@student.uc.pt
+Tiago Filipe Santa Ventura, 2019243695, uc2019243695@student.uc.pt
+
+19/12/2020
+---------------------------------------------------------------------------"""
+
 from source_code.cmp.modules.filters import util as util
+
+#region Public Functions
 
 
 def apply_mtf(data, alphabet):
@@ -32,3 +49,6 @@ def invert_mtf(data, alphabet):
         decoded.append(symbol)
         symbol_list = [symbol_list.pop(index)] + symbol_list
     return decoded
+
+
+#endregion Public Functions

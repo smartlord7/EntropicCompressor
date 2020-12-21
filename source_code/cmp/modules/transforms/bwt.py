@@ -1,5 +1,22 @@
+"""------------CODEC's nao destrutivos para imagens monocromaticas------------
+Universidade de Coimbra
+Licenciatura em Engenharia Informatica
+Teoria da Informacao
+Segundo ano, primeiro semestre
+
+Authors:
+João Afonso Vieira de Sousa, 2019224599, uc2019224599@student.uc.pt
+José Domingos da Silva, 2018296125, uc2018296125@student.uc.pt
+Sancho Amaral Simões, 2019217590, uc2019217590@student.uc.pt
+Tiago Filipe Santa Ventura, 2019243695, uc2019243695@student.uc.pt
+
+19/12/2020
+---------------------------------------------------------------------------"""
+
 import numpy as np
 from cffi.backend_ctypes import xrange
+
+#region Public Functions
 
 
 def bwt_encode(data):
@@ -32,7 +49,7 @@ def bwt_encode(data):
 def bwt_decode(encoded_data, index):
     """
     Naive implementation of Burrows-Wheeler Inverse Transform.
-    :param data: the target data.
+    :param encoded_data: the target data.
     :return: the BWT decoded data.
     """
     if type(encoded_data) == np.ndarray:
@@ -114,3 +131,6 @@ def reverse_bwt(encoded_data):
         decoded = [character] + decoded
         row_index = first[character][0] + ranks[row_index]
     return decoded
+
+
+#endregion Public Functions

@@ -12,6 +12,8 @@ FILES_DIR = '../../../resources/images/uncompressed/original/'
 
 #endregion Constants
 
+#region Public Functions
+
 
 def analyse_files(files_dir):
     """
@@ -56,13 +58,16 @@ def analyse_files(files_dir):
                             ec.entropy(histogram_mtf, len_data)))
 
 
-"""
-Driver program for testing purposes - No filters, Up Filter, Simplified Paeth Filter and MTF Transform
-"""
 def main():
+    """
+    Driver program for testing purposes - No filters, Up Filter, Simplified Paeth Filter and MTF Transform
+    """
     if __name__ == '__main__':
         warnings.filterwarnings('ignore')
         analyse_files(FILES_DIR)
+
+
+#endregion Public Functions
 
 
 main()
