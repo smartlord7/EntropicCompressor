@@ -13,7 +13,7 @@ Tiago Filipe Santa Ventura, 2019243695, uc2019243695@student.uc.pt
 19/12/2020
 ---------------------------------------------------------------------------"""
 
-from source_code.cmp.BMPCodec import BMPCompressor, CMPDecompressor
+from source_code.cmp.CMPCodec import CMPCompressor, CMPDecompressor
 import warnings
 import os
 
@@ -21,7 +21,8 @@ import os
 
 TO_COMPRESS_PATH = '../../resources/images/uncompressed/original/'
 COMPRESSED_PATH = '../../resources/images/compressed/generations/1/'
-UNCOMPRESSED_PATH = '../../resources/images/uncompressed/from_cmp/'
+TO_DECOMPRESS_PATH = '../../resources/images/compressed/generations/1/'
+DECOMPRESSED_PATH = '../../resources/images/uncompressed/from_cmp/'
 
 #endregion Constants
 
@@ -39,7 +40,7 @@ def compress_files(files_dir):
         for file in files:
             if file.endswith('.bmp'):
                 print('\n-------------------- \n%s Compression\n--------------------' % file)
-                comp = BMPCompressor(TO_COMPRESS_PATH + file, COMPRESSED_PATH, benchmark=True)
+                comp = CMPCompressor(TO_COMPRESS_PATH + file, COMPRESSED_PATH, benchmark=True)
                 comp.apply_simple_filter(True)
                 #comp.apply_simplified_paeth_filter()
                 #comp.apply_mtf()
@@ -52,7 +53,7 @@ def compress_files(files_dir):
                 print('--------------------')
 
 
-def uncompress_files(files_dir):
+def decompress_files(files_dir):
     """
        Given a directory, this function loops through all the .cmp files inside it and applies the specified algorithms below in order
        to decompress the files in question.
@@ -63,7 +64,7 @@ def uncompress_files(files_dir):
         for file in files:
             if file.endswith('.cmp'):
                 print('\n-------------------- \n%s Decompression\n--------------------' % file)
-                decomp = CMPDecompressor(COMPRESSED_PATH + file, UNCOMPRESSED_PATH, benchmark=True)
+                decomp = CMPDecompressor(COMPRESSED_PATH + file, DECOMPRESSED_PATH, benchmark=True)
                 #decomp.apply_inverse_lzma()
                 decomp.apply_inverse_huffman_encoding()
                 decomp.apply_inverse_rle()
@@ -83,7 +84,7 @@ def main():
     if __name__ == '__main__':
         warnings.filterwarnings('ignore')
         compress_files(TO_COMPRESS_PATH)
-        uncompress_files(COMPRESSED_PATH)
+        decompress_files(TO_DECOMPRESS_PATH)
 
 
 #endregion Public Functions

@@ -52,6 +52,8 @@ class CMPBenchmarker():
 
     #endregion Constructors
 
+    #region Public Functions
+
     def output_log(self):
         """
         Function that writes the compression/decompression log information into a .txt file if the compression/decompression has successfully occurred.
@@ -75,8 +77,10 @@ class CMPBenchmarker():
         """
         self._log_data = not self._log_data
 
+    #endregion Public Functions
 
-class BMPCompressor(CMPBenchmarker):
+
+class CMPCompressor(CMPBenchmarker):
 
     """
     Class that encapsulates the information and functionalities of a custom .bmp compressor. The functions applied can be interchangeable
@@ -103,7 +107,7 @@ class BMPCompressor(CMPBenchmarker):
         :param benchmark: flag that toggles data exhibition about compression in each step.
         :param log_data: flag that toggles the compressed data exhibition in each step.
         """
-        super(BMPCompressor, self).__init__(input_file_path, output_file_path, benchmark, log_data)
+        super(CMPCompressor, self).__init__(input_file_path, output_file_path, benchmark, log_data)
 
         self._log_file_suffix = '_cmp' + self._log_file_suffix
 
