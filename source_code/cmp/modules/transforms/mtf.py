@@ -31,7 +31,8 @@ def apply_mtf(data, alphabet):
         util.show_progress(counter, len(data))
         index = symbol_list.index(char)
         encoded.append(index)
-        symbol_list = [symbol_list.pop(index)] + symbol_list
+        symbol_list.pop(index)
+        symbol_list.insert(0, char)
         counter += 1
     return encoded
 

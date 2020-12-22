@@ -19,10 +19,10 @@ import os
 
 #region Constants
 
-TO_COMPRESS_PATH = '../../resources/images/uncompressed/original/'
-COMPRESSED_PATH = '../../resources/images/compressed/generations/1/'
-TO_DECOMPRESS_PATH = '../../resources/images/compressed/generations/1/'
-DECOMPRESSED_PATH = '../../resources/images/uncompressed/from_cmp/'
+TO_COMPRESS_PATH = '../../resources/images/decompressed/original/'
+COMPRESSED_PATH = '../../resources/images/compressed/generations/12/'
+TO_DECOMPRESS_PATH = '../../resources/images/compressed/generations/12/'
+DECOMPRESSED_PATH = '../../resources/images/decompressed/from_cmp/'
 
 #endregion Constants
 
@@ -38,16 +38,17 @@ def compress_files(files_dir):
     """
     for subdir, dirs, files in os.walk(files_dir):
         for file in files:
-            if file.endswith('.bmp'):
+            if file.endswith('zebra.bmp'):
                 print('\n-------------------- \n%s Compression\n--------------------' % file)
                 comp = CMPCompressor(TO_COMPRESS_PATH + file, COMPRESSED_PATH, benchmark=True)
                 comp.apply_simple_filter(True)
                 #comp.apply_simplified_paeth_filter()
                 #comp.apply_mtf()
                 comp.apply_rle()
-                comp.apply_huffman_encoding()
+                #comp.apply_huffman_encoding()
                 #comp.apply_lzw(1024, False)
                 #comp.apply_huffman_encoding()
+                comp.apply_lzma()
                 comp.write_in_file()
                 comp.output_log()
                 print('--------------------')
@@ -65,8 +66,8 @@ def decompress_files(files_dir):
             if file.endswith('.cmp'):
                 print('\n-------------------- \n%s Decompression\n--------------------' % file)
                 decomp = CMPDecompressor(COMPRESSED_PATH + file, DECOMPRESSED_PATH, benchmark=True)
-                #decomp.apply_inverse_lzma()
-                decomp.apply_inverse_huffman_encoding()
+                decomp.apply_inverse_lzma()
+                #decomp.apply_inverse_huffman_encoding()
                 decomp.apply_inverse_rle()
                 #decomp.apply_inverse_lzw()
                 #decomp.apply_inverse_simplified_paeth_filter()
@@ -84,7 +85,7 @@ def main():
     if __name__ == '__main__':
         warnings.filterwarnings('ignore')
         compress_files(TO_COMPRESS_PATH)
-        decompress_files(TO_DECOMPRESS_PATH)
+        #decompress_files(TO_DECOMPRESS_PATH)
 
 
 #endregion Public Functions
