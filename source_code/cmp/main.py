@@ -75,7 +75,7 @@ def uncompress_files(files_dir):
 
 def main():
     """
-    Driver program - Test CMP Codec
+    Driver program - Test CMP Codec.
     """
     if __name__ == '__main__':
         warnings.filterwarnings('ignore')

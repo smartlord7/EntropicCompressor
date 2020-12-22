@@ -27,7 +27,7 @@ def analyse_files(files_dir):
 
 def main():
     """
-    Driver Program - for testing purposes -  Lempel Ziv Markov Encoding
+    Driver Program - for testing purposes -  Lempel Ziv Markov Encoding.
     """
     if __name__ == '__main__':
        analyse_files(FILES_DIR)

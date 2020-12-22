@@ -28,7 +28,7 @@ def analyse_files(files_dir):
 
 def main():
     """
-    Driver Program for testing purposes - LZW Encoding
+    Driver Program for testing purposes - LZW Encoding.
     """
     if __name__ == '__main__':
         string = [0, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3, 1, 3, 1, 2, 3, 2, 1, 2, 1, 3, 2, 1, 3, 2, -1, -1, -1, -1]

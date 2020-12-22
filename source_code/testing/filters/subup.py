@@ -6,7 +6,7 @@ import numpy as np
 
 def main():
     """
-    Driver program for testing purposes - Sub/Up Filter
+    Driver program for testing purposes - Sub/Up Filter.
     """
     if __name__ == '__main__':
         data = np.array([np.array([1, 2, 3]),

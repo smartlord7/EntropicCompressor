@@ -579,7 +579,7 @@ class CMPDecompressor:
 
     def toggle_log_data(self):
         """
-        Function that allows toggling the exhibition of the uncompressed data in each step
+        Function that allows toggling the exhibition of the uncompressed data in each step.
         :return:
         """
         self.__log_data = not self.__log_data

@@ -60,7 +60,7 @@ def analyse_files(files_dir):
 
 def main():
     """
-    Driver program for testing purposes - No filters, Up Filter, Simplified Paeth Filter and MTF Transform
+    Driver program for testing purposes - No filters, Up Filter, Simplified Paeth Filter and MTF Transform.
     """
     if __name__ == '__main__':
         warnings.filterwarnings('ignore')
