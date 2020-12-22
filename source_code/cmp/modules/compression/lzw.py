@@ -4,7 +4,9 @@ Licenciatura em Engenharia Informatica
 Teoria da Informacao
 Segundo ano, primeiro semestre
 
-Authors:
+Origin: https://rosettacode.org/wiki/LZW_compression#Python
+
+Couthors (edited):
 João Afonso Vieira de Sousa, 2019224599, uc2019224599@student.uc.pt
 José Domingos da Silva, 2018296125, uc2018296125@student.uc.pt
 Sancho Amaral Simões, 2019217590, uc2019217590@student.uc.pt

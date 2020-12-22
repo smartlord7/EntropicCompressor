@@ -44,10 +44,13 @@ def invert_mtf(data, alphabet):
     :return: the MTF decoded data.
     """
     decoded, symbol_list = list(), alphabet[::]
+    counter = int()
     for index in data:
+        util.show_progress(counter, len(data))
         symbol = symbol_list[index]
         decoded.append(symbol)
         symbol_list = [symbol_list.pop(index)] + symbol_list
+        counter += 1
     return decoded
 
 
