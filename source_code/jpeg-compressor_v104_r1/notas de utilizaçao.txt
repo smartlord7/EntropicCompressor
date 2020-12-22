@@ -1,0 +1,18 @@
+Required parameters (must follow options):
+source_file: Source image file, in any format stb_image.c supports.
+dest_file: Destination JPEG file.
+quality_factor: 1-100, higher=better (only needed in compression mode)
+
+Default mode compresses source_file to dest_file. Alternate modes:
+-x: Exhaustive compression test (only needs source_file)
+-d: Test jpgd.h. source_file must be JPEG, and dest_file must be .TGA
+
+
+
+Example usages:
+Open jpeg-compressor_v104_r1\bin on terminal if Os is windows;
+Open jpeg-compressor_v104_r1\bin_linux on terminal if Os is linux;
+Open jpeg-compressor_v104_r1\bin_mingw on terminal if on mingw environment;
+Test compression: jpge egg.bmp egg_compressed.jpg 90
+Test decompression: jpge -d egg_compressed.jpg egg_decompressed.tga  
+Exhaustively test compressor: jpge -x egg.bmp

@@ -1,0 +1,43 @@
+
+
+usage: jasper [options]
+The following options are supported:
+    --help                  Print this help information and exit.
+    --version               Print version information and exit.
+    --verbose               Enable verbose mode.
+    --debug-level $lev      Set the debug level to $lev.
+    --input $file           Read the input image from the file named $file
+                            instead of standard input.
+    --input-format $fmt     Specify the format of the input image as $fmt.
+                            (See below for the list of supported formats.)
+    --input-option $opt     Provide the option $opt to the decoder.
+    --output $file          Write the output image to the file named $file
+                            instead of standard output.
+    --output-format $fmt    Specify the format of the output image as $fmt.
+                            (See below for the list of supported formats.)
+    --output-option $opt    Provide the option $opt to the encoder.
+    --force-srgb            Force conversion to the sRGB color space.
+	
+Some of the above option names can be abbreviated as follows:
+    --input = -f, --input-format = -t, --input-option = -o,
+    --output = -F, --output-format = -T, --output-option = -O
+The following formats are supported:
+    mif      My Image Format (MIF)
+    pnm      Portable Graymap/Pixmap (PNM)
+    bmp      Microsoft Bitmap (BMP)
+    ras      Sun Rasterfile (RAS)
+    jp2      JPEG-2000 JP2 File Format Syntax (ISO/IEC 15444-1)
+    jpc      JPEG-2000 Code Stream Syntax (ISO/IEC 15444-1)
+    jpg      JPEG (ISO/IEC 10918-1)
+	pgx      JPEG-2000 VM Format (PGX)
+
+Ex:
+open jasper-2.0.14\out\install\x64-Debug (default)\bin on terminal
+
+To compress run: jasper --input lena.bmp --output lena_compressed.jp2 --output-format jp2     or     jasper -f lena.bmp -F lena_compressed.jp2 -T jp2
+To decompress run: jasper --input lena_compressed.jp2 --output lena_decompressed.bmp --output-format bmp     or     jasper -f lena_compressed.jp2 -F lena_decompressed.bmp -T bmp
+
+	
+	
+	
+    
