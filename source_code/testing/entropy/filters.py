@@ -8,7 +8,7 @@ import os
 
 #region Constants
 
-FILES_DIR = '../../../../resources/images/uncompressed/original/'
+FILES_DIR = '../../../resources/images/decompressed/original/'
 
 #endregion Constants
 
@@ -34,26 +34,30 @@ def analyse_files(files_dir):
 
                 alphabet = [i for i in range(256)]
 
-                image_data_raveled = image_data.ravel()
-
-                image_data_up = sub.apply_simple_filter(image_data_raveled, up=True)
+                image_data_up = sub.apply_simple_filter(image_data, up=True)
+                image_data_sub = sub.apply_simple_filter(image_data, up=False)
                 image_data_paeth = paeth.apply_simplified_paeth_filter(image_data, len(image_data), len(image_data[0]))
+
+                image_data_raveled = image_data.ravel()
                 image_data_mtf = mtf.apply_mtf(image_data_raveled, alphabet)
 
                 len_data = len(image_data) * len(image_data[0])
 
                 histogram = np.array(np.unique(image_data, return_counts=True))[1]
-                histogram_sub = np.array(np.unique(image_data_up, return_counts=True))[1]
+                histogram_up = np.array(np.unique(image_data_up, return_counts=True))[1]
+                histogram_sub = np.array(np.unique(image_data_sub, return_counts=True))[1]
                 histogram_paeth = np.array(np.unique(image_data_paeth.ravel(), return_counts=True))[1]
                 histogram_mtf = np.array(np.unique(image_data_mtf, return_counts=True))[1]
                 #histogram_grouped, num_groups = ec.gen_histogram_generic(image_data_up, 2)
 
                 print('%s:\nEntropy (with no filters): %.4f bits\n'
                       'Entropy (with up filter) : %.4f bits\n'
+                      'Entropy (with sub filter) : %.4f bits\n'
                         'Entropy (with simplified paeth filter) : %.4f bits\n'
                         'Entropy (with mtf transform) : %.4f bits\n'
                         %   (file, ec.entropy(histogram, len_data),
-                            ec.entropy(histogram_sub, len_data),
+                            ec.entropy(histogram_up, len_data),
+                             ec.entropy(histogram_sub, len_data),
                             ec.entropy(histogram_paeth, len_data),
                             ec.entropy(histogram_mtf, len_data)))
 
