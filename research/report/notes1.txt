@@ -1,0 +1,40 @@
+1. Compression efficiency: Compression efficiency is usually given in the form of a
+compression ratio CR,
+CR  Total size in bits of original input image
+Total size in bits of compressed bitstream  Total size in bits of encoder input
+Total size in bits of encoder output,
+(16.1)
+which compares the size of the original input image data with the size of the generated compressed bitstream. Compression efficiency is also commonly expressed
+as an average bit rate B in bits per pixel, or bpp for short,
+B  Total size in bits of compressed bitstream
+Total number of pixels in original input image  Total size in bits of encoder output
+Total size in pixels of encoder input.
+(16.2)
+As discussed in Section 16.3, for lossless coding, the achievable compression efficiency is bounded by the entropy of the finite set of symbols generated as the
+output of Stage 2, assuming these symbols are each coded separately, on a
+one-by-one basis, by Stage 3.
+2. Coding delay: The coding delay can be defined as the minimum time required
+to both encode and decode an input data sample. The coding delay increases
+with the total number of required arithmetic operations. It also usually increases
+with an increase in memory requirements since memory usage usually leads to
+communication delays. Minimizing the coding delay is especially important for
+real-time applications.
+3. Implementation complexity: Implementation complexity is measured in terms
+of the total number of required arithmetic operations and in terms of the memory requirements. Alternatively, implementation complexity can be measured in
+terms of the required number of arithmetic operations per second and the memory requirements for achieving a given coding delay or real-time performance. For
+applications that put a limit on power consumption, the implementation complexity would also include a measure of the level of power consumption. Higher
+390 CHAPTER 16 Lossless Image Compression
+compression efficiency can usually be achieved by increasing the implementation
+complexity,which would in turn lead to an increase in the coding delay. In practice,
+it is desirable to optimize the compression efficiency while keeping the implementation requirements as simple as possible. For some applications such as
+database browsing and retrieval, only a low decoding complexity is needed since
+the encoding is not performed as frequently as the decoding.
+4. Robustness: For applications that require transmission of the compressed bitstream in error-prone environments, robustness of the coding method to
+transmission errors becomes an important consideration.
+5. Scalability: Scalable encoders generate a layered bitstream embedding a hierarchical representation of the input image data. In this way, the input data can be
+recovered at different resolutions in a hierarchical manner (scalability in resolution), and the bit rate can be varied depending on the available resources using the
+same encoded bitstream (scalability in bit rate; the encoding does not have to be
+repeated to generate the different bit rates). The JPEG 2000 standard (Chapter 17)
+is an example of a scalable image coder that generates an embedded bitstream
+and that supports scalability in quality, resolution, spatial location, and image
+components [4, Chapter 9].

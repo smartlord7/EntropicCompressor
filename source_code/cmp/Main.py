@@ -20,8 +20,8 @@ import os
 #region Constants
 
 TO_COMPRESS_PATH = '../../resources/images/decompressed/original/'
-COMPRESSED_PATH = '../../resources/images/compressed/generations/12/'
-TO_DECOMPRESS_PATH = '../../resources/images/compressed/generations/12/'
+COMPRESSED_PATH = '../../resources/images/compressed/cmp_generations/test/'
+TO_DECOMPRESS_PATH = '../../resources/images/compressed/cmp_generations/test/'
 DECOMPRESSED_PATH = '../../resources/images/decompressed/from_cmp/'
 
 #endregion Constants
@@ -38,7 +38,7 @@ def compress_files(files_dir):
     """
     for subdir, dirs, files in os.walk(files_dir):
         for file in files:
-            if file.endswith('zebra.bmp'):
+            if file.endswith('.bmp'):
                 print('\n-------------------- \n%s Compression\n--------------------' % file)
                 comp = CMPCompressor(TO_COMPRESS_PATH + file, COMPRESSED_PATH, benchmark=True)
                 comp.apply_simple_filter(True)
@@ -85,7 +85,7 @@ def main():
     if __name__ == '__main__':
         warnings.filterwarnings('ignore')
         compress_files(TO_COMPRESS_PATH)
-        #decompress_files(TO_DECOMPRESS_PATH)
+        decompress_files(TO_DECOMPRESS_PATH)
 
 
 #endregion Public Functions

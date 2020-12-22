@@ -1,3 +1,0 @@
--------crop.bmp CMP COMPRESSION LOG-------
-
-COMPRESSION STACK: 

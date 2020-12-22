@@ -1,0 +1,41 @@
+crop.bmp:
+Entropy (with no filters): 2.3857 bits
+Entropy (with up filter) : 0.8513 bits
+Entropy (with sub filter) : 1.0045 bits
+Entropy (with simplified paeth filter) : 1.1156 bits
+Entropy (with mtf transform) : 1.0787 bits
+
+egg.bmp:
+Entropy (with no filters): 5.7242 bits
+Entropy (with up filter) : 2.7506 bits
+Entropy (with sub filter) : 2.6994 bits
+Entropy (with simplified paeth filter) : 2.2614 bits
+Entropy (with mtf transform) : 3.4178 bits
+
+landscape.bmp:
+Entropy (with no filters): 7.4205 bits
+Entropy (with up filter) : 2.7652 bits
+Entropy (with sub filter) : 2.8242 bits
+Entropy (with simplified paeth filter) : 2.3807 bits
+Entropy (with mtf transform) : 3.4654 bits
+
+lena.bmp:
+Entropy (with no filters): 7.4455 bits
+Entropy (with up filter) : 4.6805 bits
+Entropy (with sub filter) : 5.0693 bits
+Entropy (with simplified paeth filter) : 4.8520 bits
+Entropy (with mtf transform) : 6.7904 bits
+
+pattern.bmp:
+Entropy (with no filters): 1.8292 bits
+Entropy (with up filter) : 0.6191 bits
+Entropy (with sub filter) : 0.5957 bits
+Entropy (with simplified paeth filter) : 0.5645 bits
+Entropy (with mtf transform) : 0.6177 bits
+
+zebra.bmp:
+Entropy (with no filters): 5.8312 bits
+Entropy (with up filter) : 3.1808 bits
+Entropy (with sub filter) : 3.2219 bits
+Entropy (with simplified paeth filter) : 2.5748 bits
+Entropy (with mtf transform) : 4.3309 bits
