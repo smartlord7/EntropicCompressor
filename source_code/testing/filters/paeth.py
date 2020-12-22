@@ -6,7 +6,7 @@ import numpy as np
 
 def main():
     """
-    Driver program for testing purposes - Simplified Paeth filter
+    Driver program for testing purposes - Simplified Paeth filter.
     """
     if __name__ == '__main__':
         width, height = 10, 10

@@ -135,7 +135,7 @@ class BMPCompressor(CMPBenchmarker):
 
         """
         Function that applies Sub Filter (Delta Encoding) or Up Filter to the target data.
-        :param up: flag that allows the usage of Up Filter instead of Sub filter (both filters are performed in the same function)
+        :param up: flag that allows the usage of Up Filter instead of Sub filter (both filters are performed in the same function).
         :return:
         """
 

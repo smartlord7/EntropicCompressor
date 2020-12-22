@@ -19,7 +19,7 @@ def analyse_files(files_dir):
     """
     Function for testing purposes. The files in the specified folder (.bmp images)
     will be analysed in order to retrieve their base entropy, their entropy when up filter is applied, their entropy
-    when the simple Paeth filter is applied and their entropy when the MTF transform is applied (Move To Fronnt)
+    when the simple Paeth filter is applied and their entropy when the MTF transform is applied (Move To Front).
     :param files_dir: the directory in which the .bmp images are.
     :return:
     """
@@ -60,7 +60,7 @@ def analyse_files(files_dir):
 
 def main():
     """
-    Driver program for testing purposes - No filters, Up Filter, Simplified Paeth Filter and MTF Transform
+    Driver program for testing purposes - No filters, Up Filter, Simplified Paeth Filter and MTF Transform.
     """
     if __name__ == '__main__':
         warnings.filterwarnings('ignore')

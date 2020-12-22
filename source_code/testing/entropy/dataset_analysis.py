@@ -17,7 +17,7 @@ TICKS_SIZE = 10
 def analyse_files(files_dir):
     """
     Function for testing purposes. The files in the specified folder (.bmp images)
-    will be analysed in order to retrieve their base entropy and their entropy assuming groups of two symbols
+    will be analysed in order to retrieve their base entropy and their entropy assuming groups of two symbols.
     :param files_dir: the directory in which the .bmp images are.
     :return:
     """
@@ -41,7 +41,7 @@ def analyse_files(files_dir):
 
 def main():
     """
-    Driver program for testing purposes - Base entropy and entropy assuming groups of two symbols
+    Driver program for testing purposes - Base entropy and entropy assuming groups of two symbols.
     """
     if __name__ == '__main__':
         analyse_files(FILES_DIR)

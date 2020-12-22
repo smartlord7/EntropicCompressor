@@ -5,7 +5,7 @@ from source_code.cmp.modules.transforms import bwt as bwt
 
 def main():
     """
-    Driver program for testing purposes - Burrows-Wheeler Transform
+    Driver program for testing purposes - Burrows-Wheeler Transform.
     """
     if __name__ == '__main__':
         data ='dasfasdaadsadasdsdsdsadasdwqeqwewqeeqwesadafafwrwwwfewfsd$'

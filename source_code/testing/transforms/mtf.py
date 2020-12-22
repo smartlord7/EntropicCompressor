@@ -5,7 +5,7 @@ from source_code.cmp.modules.transforms import mtf
 
 def main():
     """
-    Driver program for testing purposes - Move To Front Transform
+    Driver program for testing purposes - Move To Front Transform.
     """
     if __name__ == '__main__':
         alphabet = [0, 1, 2, 3]
