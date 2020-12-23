@@ -32,7 +32,7 @@ def analyse_files(files_dir):
                 if l_shape == 3:
                     image_data = image_data[:, :, 0]
 
-                alphabet = [i for i in range(256)]
+                alphabet = [i for i in range(0, 256)]
 
                 image_data_up = sub.apply_simple_filter(image_data, up=True)
                 image_data_sub = sub.apply_simple_filter(image_data, up=False)
@@ -43,11 +43,16 @@ def analyse_files(files_dir):
 
                 len_data = len(image_data) * len(image_data[0])
 
-                histogram = np.array(np.unique(image_data, return_counts=True))[1]
-                histogram_up = np.array(np.unique(image_data_up, return_counts=True))[1]
-                histogram_sub = np.array(np.unique(image_data_sub, return_counts=True))[1]
-                histogram_paeth = np.array(np.unique(image_data_paeth.ravel(), return_counts=True))[1]
-                histogram_mtf = np.array(np.unique(image_data_mtf, return_counts=True))[1]
+                histogram = np.array(np.unique(image_data_raveled, return_counts=True))
+                histogram_up = np.array(np.unique(image_data_up, return_counts=True))
+                histogram_sub = np.array(np.unique(image_data_sub, return_counts=True))
+                histogram_paeth = np.array(np.unique(image_data_paeth.ravel(), return_counts=True))
+                histogram_mtf = np.array(np.unique(image_data_mtf, return_counts=True))
+
+                ec.plot_histogram(histogram_up[0], histogram_up[1], title='%s (Up Filter)' % file, ticks_size=10)
+                ec.plot_histogram(histogram_sub[0], histogram_sub[1], title='%s (Sub Filter)' % file, ticks_size=10)
+                ec.plot_histogram(histogram_paeth[0], histogram_paeth[1], title='%s (Paeth Simplified Filter)' % file, ticks_size=10)
+                ec.plot_histogram(histogram_mtf[0], histogram_mtf[1], title='%s (MTF)' % file, ticks_size=10)
                 #histogram_grouped, num_groups = ec.gen_histogram_generic(image_data_up, 2)
 
                 print('%s:\nEntropy (with no filters): %.4f bits\n'
@@ -55,11 +60,11 @@ def analyse_files(files_dir):
                       'Entropy (with sub filter) : %.4f bits\n'
                         'Entropy (with simplified paeth filter) : %.4f bits\n'
                         'Entropy (with mtf transform) : %.4f bits\n'
-                        %   (file, ec.entropy(histogram, len_data),
-                            ec.entropy(histogram_up, len_data),
-                             ec.entropy(histogram_sub, len_data),
-                            ec.entropy(histogram_paeth, len_data),
-                            ec.entropy(histogram_mtf, len_data)))
+                        %   (file, ec.entropy(histogram[1], len_data),
+                            ec.entropy(histogram_up[1], len_data),
+                             ec.entropy(histogram_sub[1], len_data),
+                            ec.entropy(histogram_paeth[1], len_data),
+                            ec.entropy(histogram_mtf[1], len_data)))
 
 
 def main():

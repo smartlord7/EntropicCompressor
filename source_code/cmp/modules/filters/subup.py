@@ -29,7 +29,7 @@ def apply_simple_filter(data, up=False):
     data = util.to_numpy_uint8(data)
     if up:
         data = np.transpose(data)
-    data = data.ravel()
+    data = data.ravel()#.astype(np.int16)
     return np.concatenate(([data[0]], np.diff(data)))
 
 
@@ -40,7 +40,7 @@ def invert_simple_filter(data, width, height, up=False):
     :param up: flag that indicates if the Up Filter was used instead of the Sub Filter.
     :return: the unfiltered data.
     """
-    data = np.cumsum(data).astype(np.uint8)
+    data = np.cumsum(data).astype(np.uint8)#.astype(np.int16)
     if up:
         return np.transpose(data.reshape((height, width)))
     return data.reshape((width, height))

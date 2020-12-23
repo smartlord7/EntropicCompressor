@@ -1,0 +1,12 @@
+O JPEG é outro método/algoritmo de compressão que comparar-se-á, e verifica-se numa primeira abordagem que se destaca dos
+outros elementos de comparação pelo facto de ser "lossy", ou seja, após compressão, perder-se-á qualidade na imagem original,
+sendo possível escolher o grau de "compromisso" nessa redução, tendo em conta o espaço disponível para a imagem comprimida.´
+
+O algoritmo JPEG comparado neste trabalho tem a seguinte stack de compressão:
+
+- Transformação do espaço de cor;
+- Downsampling;
+- Divisão em blocos;
+- Transformada discreta do cosseno (DCT)
+- Quantização;
+- Codificação de Entropia.

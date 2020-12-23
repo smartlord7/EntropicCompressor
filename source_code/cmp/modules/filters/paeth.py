@@ -86,7 +86,7 @@ def apply_simplified_paeth_filter(data, width, height):
     upper_left = __get_upper_left_matrix(data)
     p = left + above - upper_left
 
-    return (data - p).astype(np.uint8)
+    return (data - p).astype(np.uint8)#.astype(np.int16)
 
 
 def invert_simplified_paeth_filter(data, width, height):

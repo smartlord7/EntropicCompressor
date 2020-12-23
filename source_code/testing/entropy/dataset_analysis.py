@@ -6,7 +6,7 @@ import os
 #region Constants
 
 GROUP_SIZE = 2
-FILES_DIR = '../resources/images/uncompressed/original/'
+FILES_DIR = '../resources/images/decompressed/original/'
 TICKS_SIZE = 10
 
 #endregion Constants
@@ -34,9 +34,9 @@ def analyse_files(files_dir):
                 ec.plot_histogram(alphabet, histogram, file, TICKS_SIZE)
 
                 print('Entropy (groups of one symbol): %.4f  bits\n'
-                      'Entropy (groups of two symbols) : %.4f  bits\n'
-                      % (ec.entropy(histogram, len(image_data)),
-                         ec.entropy_generic(histogram_pairs, num_groups, GROUP_SIZE)))
+                      #'Entropy (groups of two symbols) : %.4f  bits\n'
+                      % (ec.entropy(histogram, len(image_data))))
+                         #ec.entropy_generic(histogram_pairs, num_groups, GROUP_SIZE)))
 
 
 def main():
