@@ -14,7 +14,7 @@ João Afonso Vieira de Sousa, 2019224599
 
 Directories config and documentation:
 
-- Get the resources .rar from Google Drive
+- Get the resources .rar from Google Drive - https://drive.google.com/file/d/162Kl6SgM2Qe_eSzIIiSXBDhiZXkToYuy/view?usp=sharing
 - Get the remaining .rar and individual files from Inforestudante
 - Extract the .rar to the same directory.
 - Go to resources/images/compressed/bloopers :)
