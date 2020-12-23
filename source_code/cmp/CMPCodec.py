@@ -95,7 +95,7 @@ class CMPCompressor(CMPBenchmarker):
     FILE_EXTENSION = '.cmp'
     ALPHABET = [i for i in range(256)]
 
-    #endregion Constans
+    #endregion Constants
 
     #region Constructors
 
@@ -299,7 +299,7 @@ class CMPCompressor(CMPBenchmarker):
 
     def apply_lzma(self):
         """
-        Function that applies Lempel-Ziv-Whelch (LZW) to the target data (variation of LZ dictionary compression methods).
+        Function that applies Lempel-Ziv-Markov (LZMA) to the target data (variation of LZ dictionary compression methods).
         :return:
         """
         self._log_file_text += ' -> LZMA\n'
