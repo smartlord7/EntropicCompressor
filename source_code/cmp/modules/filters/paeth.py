@@ -32,11 +32,11 @@ def __paeth_simplified_predictor(data, line, column):
     return left + above - upper_left
 
 
-def __get_left_mattrix(data):
+def __get_left_matrix(data):
     """
-    Function that cumputes, using NumPy functions, the mattrix of each image pixel's correspondent previous (left) pixel.
+    Function that computes, using NumPy functions, the matrix of each image pixel's correspondent previous (left) pixel.
     :param data: the matrix that represents the image.
-    :return: the mattrix of each image pixel's correspondent previous (left) pixel.
+    :return: the matrix of each image pixel's correspondent previous (left) pixel.
     """
     return np.hstack((np.zeros((data.shape[0], 1)),
                       np.vstack((np.zeros(data.shape[1] - 1),
@@ -44,11 +44,11 @@ def __get_left_mattrix(data):
                                            data.shape[1] - 1, axis=1))))).astype(np.int16)
 
 
-def __get_above_mattrix(data):
+def __get_above_matrix(data):
     """
-    Function that cumputes, using NumPy functions, the mattrix of each image pixel's correspondent above pixel.
+    Function that computes, using NumPy functions, the matrix of each image pixel's correspondent above pixel.
     :param data: the matrix that represents the image.
-    :return: the mattrix of each image pixel's correspondent above pixel.
+    :return: the matrix of each image pixel's correspondent above pixel.
     """
     return np.hstack((np.zeros((data.shape[0], 1)),
                       np.vstack(((np.zeros(data.shape[1] - 1)),
@@ -56,11 +56,11 @@ def __get_above_mattrix(data):
                                                      data.shape[0] - 1, axis=0), 0, axis=1))))).astype(np.int16)
 
 
-def __get_upper_left_mattrix(data):
+def __get_upper_left_matrix(data):
     """
-    Function that cumputes, using NumPy functions, the mattrix of each image pixel's correspondent upper left pixel.
+    Function that computes, using NumPy functions, the matrix of each image pixel's correspondent upper left pixel.
     :param data: the matrix that represents the image.
-    :return: the mattrix of each image pixel's correspondent upper left pixel.
+    :return: the matrix of each image pixel's correspondent upper left pixel.
     """
     return np.hstack((np.zeros((data.shape[0], 1)),
                       np.vstack((np.zeros(data.shape[1] - 1),
@@ -81,9 +81,9 @@ def apply_simplified_paeth_filter(data, width, height):
     :return: the filtered matrix.
     """
     data = np.array(data).reshape((width, height)).astype(np.int16)
-    left = __get_left_mattrix(data)
-    above = __get_above_mattrix(data)
-    upper_left = __get_upper_left_mattrix(data)
+    left = __get_left_matrix(data)
+    above = __get_above_matrix(data)
+    upper_left = __get_upper_left_matrix(data)
     p = left + above - upper_left
 
     return (data - p).astype(np.uint8)
@@ -116,9 +116,9 @@ def apply_paeth_filter(data, width, height, encode=True):
     :return: the filtered/unfiltered matrix.
     """
     data = np.array(data).reshape((width, height)).astype(np.int16)
-    left = __get_left_mattrix(data)
-    above = __get_above_mattrix(data)
-    upper_left = __get_upper_left_mattrix(data)
+    left = __get_left_matrix(data)
+    above = __get_above_matrix(data)
+    upper_left = __get_upper_left_matrix(data)
     p = left + above - upper_left
     dist_left = np.abs(p - left)
     dist_above = np.abs(p - above)

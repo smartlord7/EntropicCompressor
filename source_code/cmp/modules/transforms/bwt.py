@@ -73,7 +73,7 @@ def suffix_array(data):
 
 def bwt_via_suffix_array(data):
     """
-    Function that encodes a given piece of data using the BWT Transform via suffix array
+    Function that encodes a given piece of data using the BWT Transform via suffix array.
     :param data: the target data.
     :return: the BWT encoded data.
     """
@@ -89,7 +89,7 @@ def bwt_via_suffix_array(data):
 def rank_bwt(encoded_data):
     """
     Util function that t-ranks a BWT encoded data so it can be decoded.
-    Each character will have a rank index that equals to the previous ocurrences of that same character in the given data.
+    Each character will have a rank index that equals to the previous occurrences of that same character in the given data.
     :param encoded_data: the bwt encoded data.
     :return:
     """
@@ -118,7 +118,7 @@ def first_col(tots):
 
 def reverse_bwt(encoded_data):
     """
-    Function that decodes a given piece of data using the BWT Transform via suffix array
+    Function that decodes a given piece of data using the BWT Transform via suffix array.
     :param data: the target data.
     :return: the BWT decoded data.
     """
