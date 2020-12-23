@@ -1,0 +1,15 @@
+0 - MTF - RLE - Codificação de Huffman
+1 - Filtro Up - RLE - Codificação de Huffman
+2 - Filtro Up - LZW com tamanho máximo de dicionário de 4096 e sem reset do mesmo - Codificação de Huffman
+3 - Filtro Up - LZW com tamanho máximo de dicionário de 1024 e sem reset do mesmo - Codificação de Huffman
+4 - Filtro de Paeth simplificado - RLE - Codificação de Huffman
+5 - Filtro Up - LZW com tamanho máximo de dicionário de 8192 e sem reset do mesmo - Codificação de Huffman
+6 - Filtro Up - LZW com tamanho máximo de dicionário de 16384 e sem reset do mesmo - Codificação de Huffman
+7 - Filtro Up - Filtro de Paeth simplificado - RLE - Codificação de Huffman
+8 - Filtro Up - LZMA
+9 - Filtro Up - Codificação de Huffman - LZMA
+10 - Filtro Sub - LZMA
+11 - Filtro Sub - RLE - LZMA
+12 - Filtro Up - RLE - LZMA
+13 - Filtro de Paeth simplificado - LZMA
+14 - Filtro de Paeth simplificado - RLE - LZMA
